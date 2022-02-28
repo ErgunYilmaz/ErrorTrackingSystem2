@@ -1,0 +1,53 @@
+﻿@model ErrorTrackingSystem.Models.Entity.ErrorInformation
+@{
+    ViewBag.Title = "GetError";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Firma</label>
+                    <input type="text" name="Company" class="form-control" value="@Model.Company" />
+                </div>
+                <div class="form-group">
+                    <label>Müşteri Adı</label>
+                    <input type="text" name="CustomerName" class="form-control" value="@Model.CustomerName" />
+                </div>
+                <div class="form-group">
+                    <label>Müşteri Soyadı</label>
+                    <input type="text" name="CustomerSurname" class="form-control" value="@Model.CustomerSurname" />
+                </div>
+                <div class="form-group">
+                    <label>Hata Tipi</label>
+                    @Html.DropDownListFor(x => x.ErrorTypeId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Hata Özeti</label>
+                    <input type="text" name="ErrorSummary" class="form-control" value="@Model.ErrorSummary" />
+                </div>
+                
+                <div class="form-group">
+                    <label>Önceki Görüntü :</label>
+                    <img src="~/Image/@Model.Image" width="120" height="90" />
+                </div>
+                <div class="form-group">
+                    @Html.Label("Görüntü", new { @class = "control-label col-md-2" })
+                    <input type="file" name="File" />
+                </div>
+                <div class="form-group">
+                    <label>Hata Detayı</label>
+                    <input type="text" name="ErrorDetails" class="form-control" value="@Model.ErrorDetails" />
+                </div>
+                <button type="submit" class="btn btn btn-success">
+                    Güncelle
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>

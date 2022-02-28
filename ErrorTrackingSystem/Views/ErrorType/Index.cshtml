@@ -1,0 +1,28 @@
+﻿@using ErrorTrackingSystem.Models.Entity
+@model List<ErrorTypes>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-bordered">
+    <tr>
+        @*<th>Hata Tipi Numarası</th>*@
+        <th>Hata Tipi</th>
+        <th>Hata Tipi Sil</th>
+        @*<th>Hata Tipi Güncelle</th>*@
+    </tr>
+    <tbody>
+        @foreach (var type in Model)
+        {
+            <tr>
+                @*<td>@type.ErrorTypeId</td>*@
+                <td>@type.ErrorTypeName</td>
+                <td><a href="/ErrorType/Delete/@type.ErrorTypeId" class="btn btn-danger">SİL</a></td>
+                @*<td><a href="/ErrorType/UpdateErrorType/@type.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>
+
+

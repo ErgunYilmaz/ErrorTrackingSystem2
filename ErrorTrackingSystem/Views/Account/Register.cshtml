@@ -1,0 +1,50 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <br />
+        <h2 class="text-center">Kayıt ol</h2>
+        <div class="tox-form-group col-md-3 container">
+            <form method="post" new {}>
+                <label>Ad</label>
+                <input type="text" name="Name" class="form-control" required maxlength="30" />
+                <br />
+
+                <label>SoyAd</label>
+                <input type="text" name="Surname" class="form-control" required maxlength="30"/>
+                <br />
+
+                <label>Email</label>
+                <input type="text" name="Email" class="form-control" required maxlength="50"/>
+                <br />
+
+                <label>Şifre</label>
+                <input type="password" name="Password" class="form-control" required maxlength="8"/>
+                <br />
+
+                <label>Şifre Tekrarı</label>
+                <input type="password" name="RepeatPassword" class="form-control" required maxlength="8"/>
+                <br />
+                <button class="btn-dark" >Kayıt ol</button>
+
+
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>
+

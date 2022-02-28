@@ -1,0 +1,65 @@
+﻿@using ErrorTrackingSystem.Models.Entity
+@using PagedList
+@using PagedList.Mvc
+
+@model  PagedList.IPagedList<ErrorInformation>
+
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="container">
+    @*@using (Html.BeginForm())
+        {
+            <div style="width:25%;float:left">
+               @Html.TextBox("search",null,new{ @class="form-control",@placeholder ="Hata Ara"})
+                <br />
+               <div style="float:left">
+                  <input type="submit" name="btn" value="Ara" class="btn btn-info" />
+               </div>
+            </div>
+        }*@
+
+</div>
+<br />
+
+<table class="table table-bordered">
+    <tr>
+        <th>Firma</th>
+        <th>Müşteri Adı</th>
+        <th>Müşteri Soyadı</th>
+        <th>Hata Tipi</th>
+        <th>Hata Özeti</th>
+        <th>Görüntü</th>
+        <th>Hata Detayı</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+          <tr>
+               <td>@item.Company</td>
+               <td>@item.CustomerName</td>
+               <td>@item.CustomerSurname</td>
+               <td>@item.ErrorTypes.ErrorTypeName</td>
+               <td>@item.ErrorSummary</td>
+               <td><image src="~/Image/@item.Image" widht="80" height="80"></td>
+               <td>@item.ErrorDetails</td>
+
+
+               <td><a href="/Home/DeleteError/@item.ErrorId" class="btn btn-danger"> SİL </a></td>
+               <td><a href="/Home/GetError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
+
+           </tr>
+        }
+    </tbody>
+
+</table>
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page}))
+<a href="/Home/CreateError/" class="btn btn-primary" id="btn1">Yeni Hata Ekle</a>
+@*<script>
+    $('#btn1').click(function ()){
+        alert('Hata Ekeleme İşlemi Yapıldı.....!')
+    });
+</script>*@
+
