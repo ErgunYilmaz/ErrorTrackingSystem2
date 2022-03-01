@@ -17,7 +17,7 @@ namespace ErrorTrackingSystem.Controllers
     {
         MistakeTrackingSystemEntities1 db = new MistakeTrackingSystemEntities1();
         
-        public ActionResult Index(int page=1)
+        public ActionResult Index()
         {
             //var list = db.ErrorInformation.ToList();
             //if (!string.IsNullOrEmpty(search))
@@ -25,7 +25,7 @@ namespace ErrorTrackingSystem.Controllers
             //    list = list.Where(x => x.Company.Contains(search) || x.CustomerName.Contains(search) || x.CustomerSurname.Contains(search)
             //    ||x.CustomerSurname.Contains(search) ||x.ErrorSummary.Contains(search)).ToList();
             //}
-            var list = db.ErrorInformation.ToList().ToPagedList(page,3);
+            var list = db.ErrorInformation.ToList();
             return View(list);
         }
       
@@ -118,10 +118,10 @@ namespace ErrorTrackingSystem.Controllers
            
            
         }
-        public ActionResult GetErrorDetails()
+        public ActionResult GetErrorDetails(int id)
         {
-            
-            return View();
+            var d = db.ErrorInformation.Where(x=>x.ErrorId==id).FirstOrDefault();
+            return View(d);
         }
         
     }

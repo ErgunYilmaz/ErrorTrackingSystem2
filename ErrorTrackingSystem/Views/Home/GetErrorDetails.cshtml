@@ -1,0 +1,35 @@
+﻿@model ErrorTrackingSystem.Models.Entity.ErrorInformation
+
+@{
+    ViewBag.Title = "GetErrorDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="get">
+                <div class="form-group">
+                    <label>Hata Detayı</label>
+                    <br />
+                    <input type="text" name="ErrorDetails" class="form-control" value="@Model.ErrorDetails" />
+                    <tr>
+                        <td class="form-group">@Model.ErrorDetails</td>
+                    </tr>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>*@
+<table class="table table-bordered ">
+    <tr>
+        <th>Hata Detayı</th>
+        <th>Hata Görseli</th>
+    </tr>
+    <tbody>
+        <tr>
+            <td>@Model.ErrorDetails</td>
+            <td><a href="/Image/@Model.Image" rel="lightbox" title="my caption"><image src="~/Image/@Model.Image" widht="80" height="80"></a></td>
+
+        </tr>
+    </tbody>
+</table>

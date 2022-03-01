@@ -1,65 +1,92 @@
 ﻿@using ErrorTrackingSystem.Models.Entity
-@using PagedList
-@using PagedList.Mvc
-
-@model  PagedList.IPagedList<ErrorInformation>
+@model List<ErrorInformation>
 
 @{ ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-<div class="container">
-    @*@using (Html.BeginForm())
-        {
-            <div style="width:25%;float:left">
-               @Html.TextBox("search",null,new{ @class="form-control",@placeholder ="Hata Ara"})
-                <br />
-               <div style="float:left">
-                  <input type="submit" name="btn" value="Ara" class="btn btn-info" />
-               </div>
-            </div>
-        }*@
-
-</div>
-<br />
-
-<table class="table table-bordered">
-    <tr>
-        <th>Firma</th>
-        <th>Müşteri Adı</th>
-        <th>Müşteri Soyadı</th>
-        <th>Hata Tipi</th>
-        <th>Hata Özeti</th>
-        <th>Görüntü</th>
-        <th>Hata Detayı</th>
-        <th>Sil</th>
-        <th>Güncelle</th>
-    </tr>
+<table id="tblerrors" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Firma</th>
+            <th>Müşteri Adı</th>
+            <th>Müşteri Soyadı</th>
+            <th>Hata Tipi</th>
+            <th>Hata Özeti</th>
+            @*<th>Görüntü</th>*@
+            @*<th>Hata Detayı</th>*@
+            <th>Sil</th>
+            <th>Güncelle</th>
+            <th>Detay</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {
-          <tr>
-               <td>@item.Company</td>
-               <td>@item.CustomerName</td>
-               <td>@item.CustomerSurname</td>
-               <td>@item.ErrorTypes.ErrorTypeName</td>
-               <td>@item.ErrorSummary</td>
-               <td><image src="~/Image/@item.Image" widht="80" height="80"></td>
-               <td>@item.ErrorDetails</td>
+        <tr>
+            <td>@item.Company</td>
+            <td>@item.CustomerName</td>
+            <td>@item.CustomerSurname</td>
+            <td>@item.ErrorTypes.ErrorTypeName</td>
+            <td>@item.ErrorSummary</td>
+            @*<td><image src="~/Image/@item.Image" widht="80" height="80"></td>*@
+            @*<td>@item.ErrorDetails</td>*@
 
 
-               <td><a href="/Home/DeleteError/@item.ErrorId" class="btn btn-danger"> SİL </a></td>
-               <td><a href="/Home/GetError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
+            <td><a href="/Home/DeleteError/@item.ErrorId" class="btn btn-danger"> SİL </a></td>
+            <td><a href="/Home/GetError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
+            <td><a href="/Home/GetErrorDetails/@item.ErrorId" class="btn btn-warning">HATA DETAYI </a></td>
+            
 
-           </tr>
-        }
+
+
+        </tr>}
     </tbody>
 
 </table>
-@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page}))
-<a href="/Home/CreateError/" class="btn btn-primary" id="btn1">Yeni Hata Ekle</a>
-@*<script>
-    $('#btn1').click(function ()){
-        alert('Hata Ekeleme İşlemi Yapıldı.....!')
-    });
-</script>*@
+@*@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))*@
+<a href="/Home/CreateError/" class="btn btn-primary">Yeni Hata Ekle</a>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<script>
+    $('#tblerrors').DataTable();
+</script>
+<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
+    Yeni Hata Ekle
+</button>
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Hata Ekleme Ekranı</h2>
+                <form method="post" action="/Home/CreateError">
+                    <div class="modal-body">
+                        <label>Firma Adı</label>
+                        <input type="text" class="form-control" name="Company" required="" maxlength="50" />
+                        <br />
+                        <label>Müşteri Ad</label>
+                        <input type="text" class="form-control" name="CustomerName" required="" maxlength="30" />
+                        <br />
+                        <label>Müşteri Soyad</label>
+                        <input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />
+                        <br />-->
+@*<label>Hata Tipi</label>
+    @Html.DropDownListFor(x => x.ErrorTypeId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+    <br />*@
+<!--<label>Hata Özeti</label>
+                        <input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />
+                        <br />
+                        @Html.Label("Görüntü", new { @class = "control-label col-md-2" })
+                        <input type="file" name="File" class="form-control">
+                        <br />
+                        <label>Hata Detayı</label>
+                        <input type="text" class="form-control" name="ErrorDetails" maxlength="200" />
+                        <br />
+                        <button class="btn btn-info">Verileri Kaydet</button>
+                    </div>
 
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>-->

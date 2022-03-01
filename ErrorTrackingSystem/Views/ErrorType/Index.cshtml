@@ -4,13 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<table class="table table-bordered">
-    <tr>
-        @*<th>Hata Tipi Numarası</th>*@
-        <th>Hata Tipi</th>
-        <th>Hata Tipi Sil</th>
-        @*<th>Hata Tipi Güncelle</th>*@
-    </tr>
+<a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>
+<br />
+<br />
+<table id="tbltype" class="table table-bordered">
+    <thead>
+        <tr>
+            @*<th>Hata Tipi Numarası</th>*@
+            <th>Hata Tipi</th>
+            <th>Hata Tipi Sil</th>
+            @*<th>Hata Tipi Güncelle</th>*@
+        </tr>
+    </thead>
     <tbody>
         @foreach (var type in Model)
         {
@@ -23,6 +28,11 @@
         }
     </tbody>
 </table>
-<a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>
+@*<a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>*@
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
 
-
+</script>
+<link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+<script>
+    $('#tbltype').DataTable();
+</script>
