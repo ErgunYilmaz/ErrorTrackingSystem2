@@ -4,12 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fea8c8d28e7949688140bd33a41983ca" Name="Diagram1">
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.User" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="5.75" PointY="1.375" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="8" PointY="0.75" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes" />
+      <Diagram DiagramId="7feadf24bb7e468eb3fd717888995f78" Name="Diagram1">
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.City" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.Customer" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_City_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_City" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

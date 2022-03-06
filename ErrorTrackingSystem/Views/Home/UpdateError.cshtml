@@ -1,0 +1,52 @@
+﻿@model ErrorTrackingSystem.Models.Entity.ErrorInformation
+@{
+    ViewBag.Title = "UpdateError";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateError", "Home", FormMethod.Post, new { enctype = "multipart/Form-data" }))
+{
+    <div class="form-group">
+        <label>Id</label>
+        @Html.TextBoxFor(x => x.ErrorId, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Şirket</label>
+        @Html.TextBoxFor(x => x.Customer.Company, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Müşteri Ad-Soyad</label>
+        @Html.TextBoxFor(x => x.Customer.CustomerInformation, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Şehir</label>
+        @Html.TextBoxFor(x => x.City.CityName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Tipi</label>
+        @Html.TextBoxFor(x => x.ErrorTypeId, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Özeti</label>
+        @Html.TextBoxFor(x => x.ErrorSummary, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Görüntü</label>
+        @Html.TextBoxFor(x => x.Image, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Detayı</label>
+        @Html.TextBoxFor(x => x.ErrorDetails, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Çözümü</label>
+        @Html.TextBoxFor(x => x.ErrorSolution, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-success">Güncelle</button>
+    </div>
+}
+
+
+
+

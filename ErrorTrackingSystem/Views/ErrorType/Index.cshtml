@@ -8,10 +8,11 @@
 <br />
 <br />
 <table id="tbltype" class="table table-bordered">
-    <thead>
+    <thead class="btn-primary">
         <tr>
             @*<th>Hata Tipi Numarası</th>*@
             <th>Hata Tipi</th>
+            <th>Hata Açıklaması</th>
             <th>Hata Tipi Sil</th>
             @*<th>Hata Tipi Güncelle</th>*@
         </tr>
@@ -19,12 +20,14 @@
     <tbody>
         @foreach (var type in Model)
         {
-            <tr>
-                @*<td>@type.ErrorTypeId</td>*@
-                <td>@type.ErrorTypeName</td>
-                <td><a href="/ErrorType/Delete/@type.ErrorTypeId" class="btn btn-danger">SİL</a></td>
-                @*<td><a href="/ErrorType/UpdateErrorType/@type.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>*@
-            </tr>
+        <tr>
+            @*<td>@type.ErrorTypeId</td>*@
+            <td>@type.ErrorTypeName</td>
+            <td>@type.ErrorTypeExplanation</td>
+            <td>@Html.ActionLink("SİL", "Delete", new { id =type.ErrorTypeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
+            @*<td><a href="/ErrorType/Delete/@type.ErrorTypeId" class="btn btn-danger">SİL</a></td>*@
+            @*<td><a href="/ErrorType/UpdateErrorType/@type.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>*@
+        </tr>
         }
     </tbody>
 </table>

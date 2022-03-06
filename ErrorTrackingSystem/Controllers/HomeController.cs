@@ -1,75 +1,31 @@
 ﻿using ErrorTrackingSystem.Models.Entity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using PagedList;
-using PagedList.Mvc;
-
-
-
 
 namespace ErrorTrackingSystem.Controllers
 {
     public class HomeController : Controller
     {
-        MistakeTrackingSystemEntities1 db = new MistakeTrackingSystemEntities1();
-        
+        MistakeTrackingSystemEntities2 db = new MistakeTrackingSystemEntities2();
+
         public ActionResult Index()
         {
-            //var list = db.ErrorInformation.ToList();
-            //if (!string.IsNullOrEmpty(search))
-            //{
-            //    list = list.Where(x => x.Company.Contains(search) || x.CustomerName.Contains(search) || x.CustomerSurname.Contains(search)
-            //    ||x.CustomerSurname.Contains(search) ||x.ErrorSummary.Contains(search)).ToList();
-            //}
-            var list = db.ErrorInformation.ToList();
-            return View(list);
+
+            var errorInformation = db.ErrorInformation.ToList();
+
+            return View(errorInformation);
         }
-      
+
         [HttpGet]
         public ActionResult CreateError()
         {
-            List<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
-                                           select new SelectListItem
-                                           {
-                                               Text = i.ErrorTypeName,
-                                               Value = i.ErrorTypeId.ToString()
-                                           }).ToList();
-            ViewBag.info = inf;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult CreateError(ErrorInformation data,HttpPostedFileBase File)
-        {
-            if(!ModelState.IsValid)
-            {
-                return View("CreateError");
-            }
-            string path = Path.Combine("~/Image" + File.FileName);
-            File.SaveAs(Server.MapPath(path));
-            data.Image = File.FileName.ToString();
-
-            //var type = db.ErrorTypes.Where(x => x.ErrorTypeId == errorInformation.ErrorTypes.ErrorTypeId).FirstOrDefault();
-            //errorInformation.ErrorTypes = type;
-            db.ErrorInformation.Add(data);
-            db.SaveChanges();
-            return RedirectToAction("Index", "Home");
-          
-        }
-        public ActionResult DeleteError(int id)
-        {
-            var Information = db.ErrorInformation.Find(id);
-            db.ErrorInformation.Remove(Information);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        public ActionResult GetError(int id)
-        {
-            var update = db.ErrorInformation.Where(x => x.ErrorId == id).FirstOrDefault();
+            //var list = db.ErrorTypes.ToList();
+            //ViewBag.ErrorTypeId=new SelectList(list,"ErrorTypeId","ErrorTypeName")
             List<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
                                         {
@@ -77,52 +33,74 @@ namespace ErrorTrackingSystem.Controllers
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
             ViewBag.info = inf;
-
-
-            return View(update);
-
-          
+            return View();
         }
+
         [HttpPost]
-        public ActionResult GetError(ErrorInformation data,HttpPostedFileBase File)
+        public ActionResult CreateError(ErrorInformation errorInformation, HttpPostedFileBase File)
         {
 
-            var update = db.ErrorInformation.Find(data.ErrorId);
-            if (File==null)
+            if (!ModelState.IsValid)
             {
-                //update.ErrorId = data.ErrorId;
-                update.Company = data.Company;
-                update.CustomerName = data.CustomerName;
-                update.CustomerSurname = data.CustomerSurname;
-                update.ErrorTypeId = data.ErrorTypeId;
-                update.ErrorSummary = data.ErrorSummary;
-                update.ErrorDetails = data.ErrorDetails;
-                db.SaveChanges();
-                return RedirectToAction("Index");
 
+                return View("CreateError");
             }
-            else
+            if (File != null)
             {
-                //update.ErrorId = data.ErrorId;
-                update.Image = File.FileName.ToString();
-                
-                update.Company = data.Company;
-                update.CustomerName = data.CustomerName;
-                update.CustomerSurname = data.CustomerSurname;
-                update.ErrorTypeId = data.ErrorTypeId;
-                update.ErrorSummary = data.ErrorSummary;
-                update.ErrorDetails = data.ErrorDetails;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                string image = Path.GetFileName(File.FileName);
+                var path = Path.Combine(Server.MapPath("~/Image"), image);
+                File.SaveAs(path);
+               //string path = Path.Combine("~/Image" + File.FileName);
+                //File.SaveAs(Server.MapPath(path));
+                errorInformation.Image = File.FileName.ToString();
             }
-           
-           
+            db.ErrorInformation.Add(errorInformation);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        public ActionResult DeleteError(int id)
+        {
+            var Information = db.ErrorInformation.Find(id);
+            db.ErrorInformation.Remove(Information);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult UpdateError(int id)
+        {
+            var item = db.ErrorInformation.Find(id);
+            List<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
+                                        select new SelectListItem
+                                        {
+                                            Text = i.ErrorTypeName,
+                                            Value = i.ErrorTypeId.ToString()
+                                        }).ToList();
+            ViewBag.info = inf;
+            return View("UpdateError", item);
+        }
+        [HttpPost]
+        public ActionResult UpdateError(ErrorInformation errorInformation, HttpPostedFileBase File)
+        {
+            var item = db.ErrorInformation.Where(x => x.ErrorId == errorInformation.ErrorId).FirstOrDefault();
+            item.ErrorId = errorInformation.ErrorId;
+            item.Customer.Company = errorInformation.Customer.Company;
+            item.Customer.CustomerInformation = errorInformation.Customer.CustomerInformation;
+            item.City.CityName = errorInformation.City.CityName;
+            item.ErrorSummary = errorInformation.ErrorSummary;
+            item.ErrorTypeId = errorInformation.ErrorTypeId;
+            item.ErrorDetails = errorInformation.ErrorDetails;
+            item.Image = errorInformation.ErrorDetails;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
         public ActionResult GetErrorDetails(int id)
         {
-            var d = db.ErrorInformation.Where(x=>x.ErrorId==id).FirstOrDefault();
+            var d = db.ErrorInformation.Where(x => x.ErrorId == id).FirstOrDefault();
             return View(d);
         }
-        
+
     }
 }
+
+

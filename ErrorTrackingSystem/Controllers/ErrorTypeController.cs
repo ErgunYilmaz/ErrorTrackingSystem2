@@ -11,7 +11,7 @@ namespace ErrorTrackingSystem.Controllers
     public class ErrorTypeController : Controller
     {
         // GET: ErrorType
-        MistakeTrackingSystemEntities1 db = new MistakeTrackingSystemEntities1();
+        MistakeTrackingSystemEntities2 db = new MistakeTrackingSystemEntities2();
         public ActionResult Index()
         {
            
@@ -28,7 +28,7 @@ namespace ErrorTrackingSystem.Controllers
         public ActionResult Create()
         {
 
-            return View();
+           return View();
         }
         [HttpPost]
         public ActionResult Create(ErrorTypes errorTypes)

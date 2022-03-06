@@ -1,9 +1,53 @@
 ﻿@model ErrorTrackingSystem.Models.Entity.ErrorInformation
-@{
-    ViewBag.Title = "CreateError";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+@{ ViewBag.Title = "CreateError";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
+    Yeni Hata Ekle
+</button>
+<div class="modal" id="Modal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Hata Ekleme Ekranı</h2>
+                <form method="post" action="/Home/CreateError" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <label>Firma Adı</label>
+                        <input type="text" class="form-control" name="Company" required="" maxlength="50" />
+                        @Html.TextBoxFor(x => x.Customer.Company, new { class = "form-control" })
+                        <br />
+                        <label>Müşteri Ad/Soyad</label>
+                        <input type="text" class="form-control" name="CustomerName" required="" maxlength="30" />
+                        @Html.TextBoxFor(x => x.Customer.CustomerInformation ,new { @class = "form-control" })
+                        <br />
+                        <label>Adres</label>
+                        <input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />
+                        @Html.TextBoxFor(x => x.City.CityName, new { @class = "form-control" })
+                        <br />
+                        <label>Hata Tipi</label>
+
+                        <br />
+                        <label>Hata Özeti</label>
+                        <input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />
+                        @Html.TextBoxFor(x => x.ErrorSummary, new { @class = "form-control" })
+                        <br />
+                        <label>Görüntü</label>
+                        @Html.TextBoxFor(model => model.Image, new { type = "file", name = "File" })
+                        <input type="file" name="File" class="form-control">
+                        <br />
+                        <label>Hata Detayı</label>
+                        <input type="text" class="form-control" name="ErrorDetails" maxlength="200" />
+                        @Html.TextBoxFor(x => x.ErrorDetails, new { @class = "form-control" })
+                        <br />
+                        <button class="btn btn-info">Verileri Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>*@
 <!--<form class="form-group" method="post">
     <div>
         <label>Firma Adı</label>
@@ -16,13 +60,13 @@
     <div>
         <label>Müşteri Soyad</label>
         <input type="text" class="form-control" name="CustomerSurname" />
-    </div>
-    <div>
-        <label>Hata tipi</label>-->
-        @*<input type="text" class="form-control" name="ErrorType" />**@
-        <!--@Html.DropDownListFor(x=>x.ErrorTypes.ErrorTypeId,(List<SelectListItem>)ViewBag.info,new {@class="form-control" })
-    </div>
-    <div>
+    </div>-->
+    @*<div>
+        <label>Hata tipi</label>
+        <input type="text" class="form-control" name="ErrorType" />*
+        @Html.DropDownListFor(x => x.ErrorTypes.ErrorTypeId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+    </div>*@
+    <!--<div>
         <label>Hata Özeti</label>
         <input type="text" class="form-control" name="ErrorSummary" />
     </div>
@@ -31,45 +75,45 @@
     </div>
 
 </form>-->
-@using (Html.BeginForm("CreateError", "Home", FormMethod.Post, new { enctype = "multipart/Form-data" })) 
+@*@using (Html.BeginForm("CreateError", "Home", FormMethod.Post, new { enctype = "multipart/Form-data" }))
 {
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Firma Adı</label>
-                    <input type="text" class="form-control" name="Company" required="" maxlength="50"/>
-                </div>
-                <div class="form-group">
-                    <label>Müşteri Ad</label>
-                    <input type="text" class="form-control" name="CustomerName" required="" maxlength="30"/>
-                </div>
-                <div class="form-group">
-                    <label>Müşteri Soyad</label>
-                    <input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30"/>
-                </div>
-                <div class="form-group">
-                    <label>Hata Tipi</label>
-                    @Html.DropDownListFor(x => x.ErrorTypeId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })
-                </div>
-                <div class="form-group">
-                    <label>Hata Özeti</label>
-                    <input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80"/>
-                </div>
-                <div class="form-group">
-                    @Html.Label("Görüntü", new { @class = "control-label col-md-2" })
-                    <input type="file" name="File" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Hata Detayı</label>
-                    <input type="text" class="form-control" name="ErrorDetails" maxlength="200"/>
-                </div>
-                <div>
-                    <button class="btn btn-info" type="submit">Hata Ekle</button>               
-                </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Firma Adı</label>
+                <input type="text" class="form-control" name="CustomerId" required="" maxlength="50" />
             </div>
-
+            <div class="form-group">
+                <label>Müşteri Ad/Soyad</label>
+                <input type="text" class="form-control" name="Customer" required="" maxlength="30" />
+            </div>
+            <div class="form-group">
+                <label>Müşteri Soyad</label>
+                <input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />
+            </div>
+            <div class="form-group">
+                <label>Hata Tipi</label>
+                @Html.DropDownListFor(x => x.ErrorTypeId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Hata Özeti</label>
+                <input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />
+            </div>
+            <div class="form-group">
+                @Html.Label("Görüntü", new { @class = "control-label col-md-2" })
+                <label>Görüntü</label>
+                <input type="file" name="File" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Hata Detayı</label>
+                <input type="text" class="form-control" name="ErrorDetails" maxlength="200" />
+            </div>
+            <div>
+                <button class="btn btn-info" type="submit">Hata Ekle</button>
+            </div>
         </div>
+
     </div>
-}
+</div>}*@
 

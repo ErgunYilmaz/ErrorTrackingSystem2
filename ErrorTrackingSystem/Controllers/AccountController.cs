@@ -11,7 +11,7 @@ namespace ErrorTrackingSystem.Controllers
     public class AccountController : Controller
     {
         // GET: Account
-        MistakeTrackingSystemEntities1 db = new MistakeTrackingSystemEntities1();
+        MistakeTrackingSystemEntities2 db = new MistakeTrackingSystemEntities2();
         public ActionResult Index()
         {
             return View();
@@ -27,9 +27,8 @@ namespace ErrorTrackingSystem.Controllers
             if (information!=null)
             {
                 FormsAuthentication.SetAuthCookie(information.Email, false);
-                Session["Mail"] = information.Email.ToString();
-                //Session["Ad"] = information.Name.ToString();
-                //Session["Soyad"] = information.Surname.ToString();
+                Session["EMail"] = information.Email.ToString();
+               
             }
             else
             {
@@ -44,6 +43,7 @@ namespace ErrorTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
+
             db.User.Add(user);
             db.SaveChanges();
             return RedirectToAction("Login", "Account");
