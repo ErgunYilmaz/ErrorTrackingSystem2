@@ -28,6 +28,9 @@ namespace ErrorTrackingSystem.Controllers
             {
                 FormsAuthentication.SetAuthCookie(information.Email, false);
                 Session["EMail"] = information.Email.ToString();
+                Session["Name"] = information.Name.ToString();
+                Session["Surname"] = information.Surname.ToString();
+                return RedirectToAction("Index", "Home");
                
             }
             else
@@ -43,7 +46,6 @@ namespace ErrorTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-
             db.User.Add(user);
             db.SaveChanges();
             return RedirectToAction("Login", "Account");

@@ -7,15 +7,12 @@
 <form class="form-group" method="post">
     <div>
         <label>Hata Kodu</label>
-        @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control" })
-        @*@Html.ValidationMessageFor(m=>m.ErrorTypeName,"",new {@style="color:red"})*@
+        @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control" })     
     </div>
     <div>
         <label>Hata Açıklaması</label>
-        @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control" })
-        @*@Html.ValidationMessageFor(m=>m.ErrorTypeName,"",new {@style="color:red"})*@
+        @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control" })      
     </div>
-
     <div style="margin-top:15px">
         <button class="btn btn-info">Hata Tipi Ekle</button>
     </div>

@@ -17,8 +17,8 @@ namespace ErrorTrackingSystem.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
-            this.City = new HashSet<City>();
             this.ErrorInformation = new HashSet<ErrorInformation>();
+            this.City = new HashSet<City>();
         }
     
         public int CustomerId { get; set; }
@@ -26,8 +26,8 @@ namespace ErrorTrackingSystem.Models.Entity
         public string Company { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<City> City { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ErrorInformation> ErrorInformation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<City> City { get; set; }
     }
 }

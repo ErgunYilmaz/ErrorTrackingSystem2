@@ -15,7 +15,7 @@ namespace ErrorTrackingSystem.Models.Entity
     public partial class ErrorInformation
     {
         public int ErrorId { get; set; }
-        public Nullable<int> ErrorTypeId { get; set; }
+        public Nullable<int> ErrorTId { get; set; }
         public string ErrorSummary { get; set; }
         public string ErrorDetails { get; set; }
         public string Image { get; set; }
@@ -23,8 +23,8 @@ namespace ErrorTrackingSystem.Models.Entity
         public Nullable<int> CityId { get; set; }
         public Nullable<int> CustomerId { get; set; }
     
+        public virtual ErrorTypes ErrorTypes { get; set; }
         public virtual City City { get; set; }
         public virtual Customer Customer { get; set; }
-        public virtual ErrorTypes ErrorTypes { get; set; }
     }
 }

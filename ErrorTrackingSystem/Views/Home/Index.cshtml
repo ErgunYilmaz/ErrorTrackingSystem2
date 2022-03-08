@@ -1,10 +1,12 @@
-﻿@model IEnumerable<ErrorTrackingSystem.Models.Entity.ErrorInformation>
-
+﻿@model  IEnumerable<ErrorTrackingSystem.Models.Entity.ErrorInformation>
 @{
     ViewBag.Title = "Index";
     var errorInformation = ViewBag.modal as ErrorTrackingSystem.Models.Entity.ErrorInformation;
-
+    var errorTypes = ViewBag.modal as ErrorTrackingSystem.Models.Entity.ErrorTypes;
 }
+@*<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>*@
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
     Yeni Hata Ekle
 </button>
@@ -19,35 +21,34 @@
                         <label>Firma Adı</label>
                         @*<input type="text" class="form-control" name="Company" required="" maxlength="50" />*@
                         @Html.TextBoxFor(modal => errorInformation.Customer.Company, new { @class = "form-control" })
-                        <br />
+
                         <label>Müşteri Ad/Soyad</label>
                         @*<input type="text" class="form-control" name="CustomerName" required="" maxlength="30" />*@
                         @Html.TextBoxFor(modal => errorInformation.Customer.CustomerInformation, new { @class = "form-control" })
-                        <br />
+
                         <label>Adres</label>
                         @*<input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />*@
                         @Html.TextBoxFor(modal => errorInformation.City.CityName, new { @class = "form-control" })
-                        @*<br />*@
-                        @*<label>Hata Tipi</label>*@
-                        @*@Html.DropDownListFor(modal => errorInformation.ErrorTypeId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })*@
-                        @* @Html.DropDownListFor(x=>x.,  List<SelectListItem>, new { @class = "form-control" })*@
-                        <br />
+
+                        <label>Hata Tipi</label>
+                        @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+
                         <label>Hata Özeti</label>
                         @*<input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />*@
-                        @Html.TextBoxFor(moda => errorInformation.ErrorSummary, new { @class = "form-control" })
-                        <br />
+                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control" })
+
                         <label>Görüntü</label>
                         @*@Html.TextBoxFor(model => errorInformation.Image, new { type = "file", name = "File" })*@
                         <input type="file" name="File" class="form-control">
-                        <br />
+
                         <label>Hata Detayı</label>
                         @*<input type="text" class="form-control" name="ErrorDetails" maxlength="200" />*@
                         @Html.TextBoxFor(modal => errorInformation.ErrorDetails, new { @class = "form-control" })
-                        <br />
+
                         <label>Hata Çözümü</label>
                         @Html.TextBoxFor(modal => errorInformation.ErrorSolution, new { @class = "form-control" })
                         <br />
-                        <button class="btn btn-info">Verileri Kaydet</button>
+                        <button class="btn btn-info" id="btn_Save">Verileri Kaydet</button>
                     </div>
                 </form>
             </div>
@@ -75,11 +76,12 @@
                 <td>@item.Customer.Company</td>
                 <td>@item.Customer.CustomerInformation</td>
                 <td>@item.City.CityName</td>
-                <td>@item.ErrorTypeId</td>
+                <td>@item.ErrorTypes.ErrorTypeName</td>
                 <td>@item.ErrorSummary</td>
                 @*<td>@item.ErrorTypeId</td>*@
-                @*<td><a  class="btn btn-danger " id="btnDeleteError" > SİL </a></td>*@
-                <td>@Html.ActionLink("SİL", "DeleteError", new { id = item.ErrorId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
+                @*<td><a class="btn btn-danger " id="btnDeleteError" href="#"> SİL </a></td>*@
+                <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorId)">SİL</a></td>
+                @*<td>@Html.ActionLink("SİL", "DeleteError", new { id = item.ErrorId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>*@
                 <td><a href="/Home/UpdateError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
                 <td><a href="/Home/GetErrorDetails/@item.ErrorId" class="btn btn-warning">HATA DETAYI </a></td>
             </tr>
@@ -87,6 +89,63 @@
     </tbody>
 
 </table>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Hata Sil</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Silmek istediğine emin misin? </h4>
+
+
+            </div>
+            <div class="modal-footer">
+                <a href="/Home/Index" class="btn btn-default" data-dismiss="modal">İptal</a>
+                <a href="/Home/Index" class="btn btn-success" onclick="DeleteError()">Onayla</a>
+            </div>
+
+        </div>
+
+    </div>
+    <input type="hidden" id="id" />
+</div>
+<script>
+
+    var ConfirmDelete = function (id) {
+
+        $("#id").val(id);
+        $("#myModal").modal('show');
+
+    }
+
+    var DeleteError = function () {
+
+        $("#loaderDiv").show();
+
+        var errId = $("#id").val();
+
+        $.ajax({
+
+            type: "POST",
+            url: "/Home/DeleteError",
+            data: { id: errId },
+            success: function (result) {
+                $("#loaderDiv").hide();
+                $("#myModal").modal("hide");
+                $("#row_" + errId).remove();
+
+            }
+
+        })
+
+    }
+</script>
+
+
 @*@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))*@
 @*<a href="/Home/CreateError/" class="btn btn-primary">Yeni Hata Ekle</a>*@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -100,19 +159,19 @@
         }
     </script>*@
 @*<script>
-    $(document).ready(function () {
-        $("btnSave").click(function () {
-            var errorInformationData = $("#errorInformation").serialize();
-            $.ajax({
-                type: "POST",
-                url: "/Home/CreateError",
-                data: errorInformationData,
-                success: function () {
-                    $("#Modal1").modal("hide");
-                }
+        $(document).ready(function () {
+            $("btnSave").click(function () {
+                var dataForm = $("#formData").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/CreateError",
+                    data: dataForm,
+                    success: function () {
+                        window.location.href = "Home/Index";
+                    }
+                })
             })
         })
-    })*@
-@*</script>*@
+    </script>*@
 
 

@@ -18,14 +18,15 @@ namespace ErrorTrackingSystem.Models.Entity
         public City()
         {
             this.ErrorInformation = new HashSet<ErrorInformation>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int CityId { get; set; }
         public string CityName { get; set; }
-        public Nullable<int> CustomerId { get; set; }
     
-        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ErrorInformation> ErrorInformation { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
     }
 }

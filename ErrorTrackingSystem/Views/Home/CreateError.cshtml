@@ -75,8 +75,8 @@
     </div>
 
 </form>-->
-@*@using (Html.BeginForm("CreateError", "Home", FormMethod.Post, new { enctype = "multipart/Form-data" }))
-{
+@*@using (Html.BeginForm("CreateError", "Home", FormMethod.Post, new { enctype = "multipart/Form-data" }))*@
+@*{
 <div class="container">
     <div class="row">
         <div class="col-md-6">
@@ -94,7 +94,7 @@
             </div>
             <div class="form-group">
                 <label>Hata Tipi</label>
-                @Html.DropDownListFor(x => x.ErrorTypeId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.ErrorTId, (List<SelectListItem>)ViewBag.info, new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label>Hata Özeti</label>
@@ -115,5 +115,7 @@
         </div>
 
     </div>
-</div>}*@
+</div>
+    
+}*@
 
