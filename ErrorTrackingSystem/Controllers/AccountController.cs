@@ -46,9 +46,24 @@ namespace ErrorTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-            db.User.Add(user);
-            db.SaveChanges();
-            return RedirectToAction("Login", "Account");
+            if (user.Password==user.RepeatPassword) 
+            {
+                db.User.Add(user);
+                db.SaveChanges();
+                ModelState.Clear();
+                ViewBag.Message = user.Name + "  " + user.Surname + " " + "başarılı şekilde kayıt oldunuz.";
+                //return RedirectToAction("Login","Account");
+            }
+            else
+            {
+               
+                ViewBag.Message = "Girmiş olduğunuz şifreler birbirleriyle eşleşmemektedir..";
+              
+            }
+           
+          
+            return View();
+
         }
     }
 }

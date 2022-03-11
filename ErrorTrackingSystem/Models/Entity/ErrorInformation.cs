@@ -23,8 +23,8 @@ namespace ErrorTrackingSystem.Models.Entity
         public Nullable<int> CityId { get; set; }
         public Nullable<int> CustomerId { get; set; }
     
-        public virtual ErrorTypes ErrorTypes { get; set; }
         public virtual City City { get; set; }
         public virtual Customer Customer { get; set; }
+        public virtual ErrorTypes ErrorTypes { get; set; }
     }
 }

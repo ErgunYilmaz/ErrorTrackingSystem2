@@ -22,7 +22,7 @@ namespace ErrorTrackingSystem.Models.Entity
         }
     
         public int CustomerId { get; set; }
-        public string CustomerInformation { get; set; }
+        public string CustomerName { get; set; }
         public string Company { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

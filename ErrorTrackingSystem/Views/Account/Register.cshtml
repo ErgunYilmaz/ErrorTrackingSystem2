@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    
 }
 
 <!DOCTYPE html>
@@ -13,36 +14,39 @@
 
 </head>
 <body>
-    <div class="container">
+    <div class="container" >
         <br />
-        <h2 class="text-center">Kayıt ol</h2>
-        <div class="tox-form-group col-md-3 container">
-            <form method="post" new {}>
+        <h2 class="text-center">KAYIT OL</h2>
+        <div class="tox-form-group col-md-5 container " style="background-color: gainsboro; align-items: center;" >
+            <form method="post">
                 <label>Ad</label>
-                <input type="text" name="Name" class="form-control" required maxlength="30" />
-                <br />
+                <input type="text" name="Name" class="form-control" required maxlength="30" placeholder="Adınızı giriniz..."/>
+               
 
-                <label>SoyAd</label>
-                <input type="text" name="Surname" class="form-control" required maxlength="30"/>
-                <br />
+                <label>Soyad</label>
+                <input type="text" name="Surname" class="form-control" required maxlength="30" placeholder="Soyadınızı girinz..."/>
+               
 
                 <label>Email</label>
-                <input type="text" name="Email" class="form-control" required maxlength="50"/>
-                <br />
+                <input type="email" name="Email" class="form-control" required maxlength="50" placeholder="Email bilginizi giriniz.."/>
+                
 
                 <label>Şifre</label>
-                <input type="password" name="Password" class="form-control" required maxlength="16"/>
-                <br />
+                <input type="password" name="Password" class="form-control" required maxlength="16" placeholder="Şifrenizi giriniz.."/>
+            
 
                 <label>Şifre Tekrarı</label>
-                <input type="password" name="RepeatPassword" class="form-control" required maxlength="16"/>
+                <input type="password" name="RepeatPassword" class="form-control" required maxlength="16" placeholder="Şifrenizi tekrarlayınız.."/>
                 <br />
-                <button class="btn-dark" >Kayıt ol</button>
+                <button class="btn btn-dark w-100" >ONAYLA</button>
 
 
 
             </form>
-
+             <br />
+             <div class="col-md-offset-2 col-md-auto">
+                 <label>@ViewBag.Message</label>
+             </div>
         </div>
     </div>
 </body>

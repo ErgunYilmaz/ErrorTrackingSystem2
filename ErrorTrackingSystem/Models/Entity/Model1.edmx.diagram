@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7feadf24bb7e468eb3fd717888995f78" Name="Diagram1">
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.User" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="5.25" PointY="0.875" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.City" Width="1.5" PointX="0.75" PointY="1.5" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.Customer" Width="1.5" PointX="3" PointY="2" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_City" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.CustumerCity" />
+      <Diagram DiagramId="3c36e3bb5c34453e8dc7498f9aac68da" Name="Diagram1">
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.City" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.Customer" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.User" Width="1.5" PointX="2.75" PointY="7.375" IsExpanded="true" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_City" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.CustumerCity" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

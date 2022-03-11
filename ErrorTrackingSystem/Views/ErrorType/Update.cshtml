@@ -1,0 +1,25 @@
+﻿@model ErrorTrackingSystem.Models.Entity.ErrorTypes
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Update","ErrorType", FormMethod.Post))
+{
+    <div style="display: none" class="form-group">
+        <label>Id</label>
+        @Html.TextBoxFor(x => x.ErrorTypeId, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Kodu</label>
+        @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Hata Açıklaması</label>
+        @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control" })
+    </div>
+    <div>
+        <button class="btn btn-success">Güncelle</button>
+    </div>
+}
+

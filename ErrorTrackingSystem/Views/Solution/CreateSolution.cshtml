@@ -1,0 +1,17 @@
+﻿@model ErrorTrackingSystem.Models.Entity.ErrorSolution
+@{
+    ViewBag.Title = "CreateSolution";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Hata Tipi: </label>
+        @Html.TextBoxFor(x => x.ErrorSolution1, new { @class = "form-control" })
+        
+    </div>
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Hata Tipi Ekle</button>
+    </div>
+</form>
+

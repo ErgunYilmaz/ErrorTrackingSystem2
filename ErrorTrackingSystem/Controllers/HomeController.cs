@@ -13,62 +13,71 @@ namespace ErrorTrackingSystem.Controllers
     public class HomeController : Controller
     {
         MistakeTrackingSystemEntities2 db = new MistakeTrackingSystemEntities2();
-
+        [Authorize]
         public ActionResult Index()
         {
-
             var errorInformation = db.ErrorInformation.ToList();
-            IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
+            IEnumerable<SelectListItem> deger = (from i in db.Customer
+                                                 select new SelectListItem
+                                                 {
+                                                     Text = i.CustomerName,
+                                                     Value = i.CustomerId.ToString()
+                                                 }).ToList();
+            ViewBag.degerler = deger;
+            IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes
                                                select new SelectListItem
                                                {
                                                    Text = i.ErrorTypeName,
                                                    Value = i.ErrorTypeId.ToString()
                                                }).ToList();
-            ViewBag.info = inf;          
+            ViewBag.info=inf;
             return View(errorInformation);
         }
-
+     
         [HttpGet]
         public ActionResult CreateError()
         {
             //ViewBag.info = db.ErrorTypes.Select(x => new SelectListItem { Text = x.ErrorTypeName, Value = x.ErrorTypeId.ToString() }).ToList();
             //var errortypelist = db.ErrorTypes.ToList();
             //ViewBag.info = new SelectList(errortypelist, "ErrorTypeId", "ErrorTypeName");
-          
+            IEnumerable<SelectListItem> deger = (from i in db.Customer.ToList()
+                                                 select new SelectListItem
+                                                 {
+                                                     Text = i.CustomerName,
+                                                     Value = i.CustomerId.ToString()
+                                                 }).ToList();
+            ViewBag.degerler = deger;
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
                                         {
                                             Text = i.ErrorTypeName,
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
-            ViewBag.info = inf;
+            ViewBag.info= inf;
+        
+
             return View();
         }
 
         [HttpPost]
         public ActionResult CreateError(ErrorInformation errorInformation, HttpPostedFileBase File)
         {
-
             if (!ModelState.IsValid)
             {
-
                 return View("CreateError");
             }
-            if (File != null)
+            if (File != null )
             {
 
                 string image = Path.GetFileName(File.FileName);
                 var path = Path.Combine(Server.MapPath("~/Image"), image);
-                File.SaveAs(path);
-                //string path = Path.Combine("~/Image" + File.FileName);
-                //File.SaveAs(Server.MapPath(path)); 
+                File.SaveAs(path);               
                 errorInformation.Image = File.FileName.ToString();
             }
             db.ErrorInformation.Add(errorInformation);
             db.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
-
 
         public ActionResult DeleteError(int id)
         {
@@ -78,15 +87,19 @@ namespace ErrorTrackingSystem.Controllers
             return RedirectToAction("Index");
         }
         public ActionResult UpdateError(int id)
+
         {
+         
             var item = db.ErrorInformation.Find(id);
-            List<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
+            IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
                                         {
                                             Text = i.ErrorTypeName,
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
             ViewBag.info = inf;
+
+
             return View("UpdateError",item);
         }
         [HttpPost]
@@ -106,12 +119,13 @@ namespace ErrorTrackingSystem.Controllers
 
             item.ErrorId = errorInformation.ErrorId;
             item.Customer.Company = errorInformation.Customer.Company;
-            item.Customer.CustomerInformation = errorInformation.Customer.CustomerInformation;
+            item.Customer.CustomerName = errorInformation.Customer.CustomerName;
             item.City.CityName = errorInformation.City.CityName;
             item.ErrorSummary = errorInformation.ErrorSummary;
             item.ErrorTId = errorInformation.ErrorTId;
             item.ErrorDetails = errorInformation.ErrorDetails;
             item.Image = errorInformation.Image;
+            item.ErrorSolution = errorInformation.ErrorSolution;
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -120,6 +134,7 @@ namespace ErrorTrackingSystem.Controllers
             var d = db.ErrorInformation.Where(x => x.ErrorId == id).FirstOrDefault();
             return View(d);
         }
+     
     }
 }
     

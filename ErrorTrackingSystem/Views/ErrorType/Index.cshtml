@@ -1,41 +1,88 @@
-﻿@using ErrorTrackingSystem.Models.Entity
-@model List<ErrorTypes>
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model IEnumerable<ErrorTrackingSystem.Models.Entity.ErrorTypes>
+
+@{ ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+
+
 <a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>
 <br />
 <br />
 <table id="tbltype" class="table table-bordered">
     <thead class="btn-primary">
         <tr>
-            @*<th>Hata Tipi Numarası</th>*@
             <th>Hata Tipi</th>
             <th>Hata Açıklaması</th>
+            <th>Hata Tipi Sil Resmessage</th>
             <th>Hata Tipi Sil</th>
-            @*<th>Hata Tipi Güncelle</th>*@
+            <th>Güncelle</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var type in Model)
+        @foreach (var item in Model)
         {
         <tr>
-            @*<td>@type.ErrorTypeId</td>*@
-            <td>@type.ErrorTypeName</td>
-            <td>@type.ErrorTypeExplanation</td>
-            <td>@Html.ActionLink("SİL", "Delete", new { id =type.ErrorTypeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
-            @*<td><a href="/ErrorType/Delete/@type.ErrorTypeId" class="btn btn-danger">SİL</a></td>*@
-            @*<td><a href="/ErrorType/UpdateErrorType/@type.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>*@
-        </tr>
-        }
+
+            <td>@item.ErrorTypeName</td>
+            <td>@item.ErrorTypeExplanation</td>
+            <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorTypeId)">SİL</a></td>
+            <td>@Html.ActionLink("SİL", "Delete", new { id = item.ErrorTypeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
+            <td><a href="/ErrorType/Update/@item.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>
+        </tr>}
     </tbody>
 </table>
-@*<a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>*@
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
 
-</script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <script>
     $('#tbltype').DataTable();
 </script>
+
+<div class="modal fade"  id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Hata Sil</h3>
+            </div>
+            <div class="modal-body">
+                <h4>Silmek istediğine emin misin? </h4>
+            </div>
+            <div class="modal-footer">
+                <a href="/ErrorType/Index" class="btn btn-success" onclick="DeleteErrorType()">Onayla</a>
+                <a href="/ErrorType/Index" class="btn btn-default" data-dismiss="modal">İptal</a>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="id" />
+</div>
+
+<script>
+        var ConfirmDelete = function (id) {
+
+            $("#id").val(id);
+            $("#myModal").modal('show');
+        }
+        var Delete = function () {
+            $("#loaderDiv").show();
+            var errId = $("#id").val();
+            $.ajax({
+
+                type: "Post",
+                url: "/Home/Delete",
+                data: { id: errId },
+                success: function (result) {
+                    $("#loaderDiv").hide();
+                    $("#myModal").modal("hide");
+                    $("#row_" + errId).remove();
+                }
+            })
+        }
+
+
+
+
+
+    </script>

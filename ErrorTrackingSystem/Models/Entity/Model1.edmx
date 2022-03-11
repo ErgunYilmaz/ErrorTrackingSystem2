@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MistakeTrackingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MistakeTrackingSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="City">
           <Key>
             <PropertyRef Name="CityId" />
@@ -17,8 +17,8 @@
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerInformation" Type="nvarchar" MaxLength="50" />
-          <Property Name="Company" Type="nchar" MaxLength="10" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Company" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="CustumerCity">
           <Key>
@@ -48,7 +48,6 @@
           <Property Name="ErrorTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ErrorTypeName" Type="nvarchar" MaxLength="50" />
           <Property Name="ErrorTypeExplanation" Type="nvarchar" MaxLength="250" />
-          <Property Name="Status" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -119,7 +118,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ErrorInformation_ErrorTypes1">
+        <Association Name="FK_ErrorInformation_ErrorTypes">
           <End Role="ErrorTypes" Type="Self.ErrorTypes" Multiplicity="0..1" />
           <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,15 +154,51 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
-          <AssociationSet Name="FK_ErrorInformation_ErrorTypes1" Association="Self.FK_ErrorInformation_ErrorTypes1">
+          <AssociationSet Name="FK_ErrorInformation_ErrorTypes" Association="Self.FK_ErrorInformation_ErrorTypes">
             <End Role="ErrorTypes" EntitySet="ErrorTypes" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MistakeTrackingSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ErrorInformation" Relationship="Self.FK_ErrorInformation_City" FromRole="City" ToRole="ErrorInformation" />
+          <NavigationProperty Name="Customer" Relationship="Self.CustumerCity" FromRole="City" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Company" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ErrorInformation" Relationship="Self.FK_ErrorInformation_Customer" FromRole="Customer" ToRole="ErrorInformation" />
+          <NavigationProperty Name="City" Relationship="Self.CustumerCity" FromRole="Customer" ToRole="City" />
+        </EntityType>
+        <EntityType Name="ErrorInformation">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorTId" Type="Int32" />
+          <Property Name="ErrorSummary" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorSolution" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <NavigationProperty Name="City" Relationship="Self.FK_ErrorInformation_City" FromRole="ErrorInformation" ToRole="City" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_ErrorInformation_Customer" FromRole="ErrorInformation" ToRole="Customer" />
+          <NavigationProperty Name="ErrorTypes" Relationship="Self.FK_ErrorInformation_ErrorTypes" FromRole="ErrorInformation" ToRole="ErrorTypes" />
+        </EntityType>
         <EntityType Name="ErrorTypes">
           <Key>
             <PropertyRef Name="ErrorTypeId" />
@@ -171,9 +206,8 @@
           <Property Name="ErrorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ErrorTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ErrorTypeExplanation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Boolean" />
-          <NavigationProperty Name="ErrorInformation" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" FromRole="ErrorTypes" ToRole="ErrorInformation" />
-          </EntityType>
+          <NavigationProperty Name="ErrorInformation" Relationship="Self.FK_ErrorInformation_ErrorTypes" FromRole="ErrorTypes" ToRole="ErrorInformation" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -195,80 +229,9 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RepeatPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="MistakeTrackingSystemEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ErrorTypes" EntityType="Self.ErrorTypes" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="ErrorInformation" EntityType="MistakeTrackingSystemModel.ErrorInformation" />
-          <AssociationSet Name="FK_ErrorInformation_ErrorTypes1" Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1">
-            <End Role="ErrorTypes" EntitySet="ErrorTypes" />
-            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
-          </AssociationSet>
-          <EntitySet Name="City" EntityType="MistakeTrackingSystemModel.City" />
-          <EntitySet Name="Customer" EntityType="MistakeTrackingSystemModel.Customer" />
-          <AssociationSet Name="FK_ErrorInformation_City" Association="MistakeTrackingSystemModel.FK_ErrorInformation_City">
-            <End Role="City" EntitySet="City" />
-            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ErrorInformation_Customer" Association="MistakeTrackingSystemModel.FK_ErrorInformation_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
-          </AssociationSet>
-          <AssociationSet Name="CustumerCity" Association="MistakeTrackingSystemModel.CustumerCity">
-            <End Role="City" EntitySet="City" />
-            <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="ErrorInformation">
-          <Key>
-            <PropertyRef Name="ErrorId" />
-          </Key>
-          <Property Name="ErrorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ErrorTId" Type="Int32" />
-          <Property Name="ErrorSummary" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorSolution" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="CityId" Type="Int32" />
-          <Property Name="CustomerId" Type="Int32" />
-          <NavigationProperty Name="ErrorTypes" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" FromRole="ErrorInformation" ToRole="ErrorTypes" />
-          <NavigationProperty Name="City" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_City" FromRole="ErrorInformation" ToRole="City" />
-          <NavigationProperty Name="Customer" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" FromRole="ErrorInformation" ToRole="Customer" />
-        </EntityType>
-        <Association Name="FK_ErrorInformation_ErrorTypes1">
-          <End Type="MistakeTrackingSystemModel.ErrorTypes" Role="ErrorTypes" Multiplicity="0..1" />
-          <End Type="MistakeTrackingSystemModel.ErrorInformation" Role="ErrorInformation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ErrorTypes">
-              <PropertyRef Name="ErrorTypeId" />
-            </Principal>
-            <Dependent Role="ErrorInformation">
-              <PropertyRef Name="ErrorTId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="City">
-          <Key>
-            <PropertyRef Name="CityId" />
-          </Key>
-          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ErrorInformation" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_City" FromRole="City" ToRole="ErrorInformation" />
-          <NavigationProperty Name="Customer" Relationship="MistakeTrackingSystemModel.CustumerCity" FromRole="City" ToRole="Customer" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="CustomerId" />
-          </Key>
-          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerInformation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Company" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ErrorInformation" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" FromRole="Customer" ToRole="ErrorInformation" />
-          <NavigationProperty Name="City" Relationship="MistakeTrackingSystemModel.CustumerCity" FromRole="Customer" ToRole="City" />
-        </EntityType>
         <Association Name="FK_ErrorInformation_City">
-          <End Type="MistakeTrackingSystemModel.City" Role="City" Multiplicity="0..1" />
-          <End Type="MistakeTrackingSystemModel.ErrorInformation" Role="ErrorInformation" Multiplicity="*" />
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="City">
               <PropertyRef Name="CityId" />
@@ -279,8 +242,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ErrorInformation_Customer">
-          <End Type="MistakeTrackingSystemModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="MistakeTrackingSystemModel.ErrorInformation" Role="ErrorInformation" Multiplicity="*" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="CustomerId" />
@@ -290,23 +253,89 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CustumerCity">
-          <End Type="MistakeTrackingSystemModel.City" Role="City" Multiplicity="*" />
-          <End Type="MistakeTrackingSystemModel.Customer" Role="Customer" Multiplicity="*" />
+        <Association Name="FK_ErrorInformation_ErrorTypes">
+          <End Role="ErrorTypes" Type="Self.ErrorTypes" Multiplicity="0..1" />
+          <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ErrorTypes">
+              <PropertyRef Name="ErrorTypeId" />
+            </Principal>
+            <Dependent Role="ErrorInformation">
+              <PropertyRef Name="ErrorTId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
+        <Association Name="CustumerCity">
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MistakeTrackingSystemEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" />
+          <EntitySet Name="ErrorInformation" EntityType="Self.ErrorInformation" />
+          <EntitySet Name="ErrorTypes" EntityType="Self.ErrorTypes" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_ErrorInformation_City" Association="Self.FK_ErrorInformation_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ErrorInformation_Customer" Association="Self.FK_ErrorInformation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ErrorInformation_ErrorTypes" Association="Self.FK_ErrorInformation_ErrorTypes">
+            <End Role="ErrorTypes" EntitySet="ErrorTypes" />
+            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
+          </AssociationSet>
+          <AssociationSet Name="CustumerCity" Association="Self.CustumerCity">
+            <End Role="City" EntitySet="City" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MistakeTrackingSystemModelStoreContainer" CdmEntityContainer="MistakeTrackingSystemEntities2">
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorInformation">
+            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.ErrorInformation">
+              <MappingFragment StoreEntitySet="ErrorInformation">
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+                <ScalarProperty Name="ErrorTId" ColumnName="ErrorTId" />
+                <ScalarProperty Name="ErrorSummary" ColumnName="ErrorSummary" />
+                <ScalarProperty Name="ErrorDetails" ColumnName="ErrorDetails" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ErrorSolution" ColumnName="ErrorSolution" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ErrorTypes">
             <EntityTypeMapping TypeName="MistakeTrackingSystemModel.ErrorTypes">
               <MappingFragment StoreEntitySet="ErrorTypes">
                 <ScalarProperty Name="ErrorTypeId" ColumnName="ErrorTypeId" />
                 <ScalarProperty Name="ErrorTypeName" ColumnName="ErrorTypeName" />
                 <ScalarProperty Name="ErrorTypeExplanation" ColumnName="ErrorTypeExplanation" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -333,43 +362,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ErrorInformation">
-            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.ErrorInformation">
-              <MappingFragment StoreEntitySet="ErrorInformation">
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="ErrorSolution" ColumnName="ErrorSolution" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ErrorDetails" ColumnName="ErrorDetails" />
-                <ScalarProperty Name="ErrorSummary" ColumnName="ErrorSummary" />
-                <ScalarProperty Name="ErrorTId" ColumnName="ErrorTId" />
-                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="City">
-            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.City">
-              <MappingFragment StoreEntitySet="City">
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customer">
-            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Company" ColumnName="Company" />
-                <ScalarProperty Name="CustomerInformation" ColumnName="CustomerInformation" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="CustumerCity" TypeName="MistakeTrackingSystemModel.CustumerCity" StoreEntitySet="CustumerCity">
-            <EndProperty Name="Customer">
-              <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-            </EndProperty>
             <EndProperty Name="City">
               <ScalarProperty Name="CityId" ColumnName="CityId" />
+            </EndProperty>
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
