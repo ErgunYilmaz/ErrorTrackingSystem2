@@ -4,22 +4,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Update","ErrorType", FormMethod.Post))
+@using (Html.BeginForm("Update", "ErrorType", FormMethod.Post, new { enctype = "multipart/Form-data" }))
 {
     <div style="display: none" class="form-group">
         <label>Id</label>
         @Html.TextBoxFor(x => x.ErrorTypeId, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        <label>Hata Kodu</label>
+        <label>Şirket</label>
         @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        <label>Hata Açıklaması</label>
+        <label>Müşteri Ad-Soyad</label>
         @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control" })
     </div>
     <div>
         <button class="btn btn-success">Güncelle</button>
     </div>
 }
+
 

@@ -50,9 +50,9 @@ namespace ErrorTrackingSystem.Controllers
             return View("Update",item);
         }
         [HttpPost]
-        public ActionResult UpdateError(ErrorTypes errorTypes)
+        public ActionResult Update(ErrorTypes errorTypes)
         {
-            var item = db.ErrorTypes.Where(x => x.ErrorTypeId == errorTypes.ErrorTypeId).FirstOrDefault();
+            var item = db.ErrorTypes.Where(x =>x.ErrorTypeId == errorTypes.ErrorTypeId).FirstOrDefault();
             item.ErrorTypeId = errorTypes.ErrorTypeId;
             item.ErrorTypeName = errorTypes.ErrorTypeName;
             item.ErrorTypeExplanation = errorTypes.ErrorTypeExplanation;

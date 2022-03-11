@@ -15,7 +15,7 @@
         <tr>
             <th>Hata Tipi</th>
             <th>Hata Açıklaması</th>
-            <th>Hata Tipi Sil Resmessage</th>
+          
             <th>Hata Tipi Sil</th>
             <th>Güncelle</th>
         </tr>
@@ -27,7 +27,7 @@
 
             <td>@item.ErrorTypeName</td>
             <td>@item.ErrorTypeExplanation</td>
-            <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorTypeId)">SİL</a></td>
+            @*<td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorTypeId)">SİL</a></td>*@
             <td>@Html.ActionLink("SİL", "Delete", new { id = item.ErrorTypeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
             <td><a href="/ErrorType/Update/@item.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>
         </tr>}
@@ -40,7 +40,7 @@
     $('#tbltype').DataTable();
 </script>
 
-<div class="modal fade"  id="myModal">
+@*<div class="modal fade"  id="myModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -85,4 +85,4 @@
 
 
 
-    </script>
+    </script>*@
