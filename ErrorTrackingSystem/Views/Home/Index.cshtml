@@ -65,28 +65,28 @@
                     <div class="modal-body">
                         <label>Firma Adı</label>
                         @*<input type="text" class="form-control" name="Company" required="" maxlength="50" />*@
-                        @Html.TextBoxFor(modal => errorInformation.Customer.Company, new { @class = "form-control" })
-                        @*@Html.TextBoxFor(modal => errorInformation.Customer.CustomerInformation, new { @class = "form-control" })*@
+                        @Html.TextBoxFor(modal => errorInformation.Customer.Company, new { @class = "form-control", @required = "required" })
+                       
                         <label>Müşteri Ad/Soyad</label>
                         <br />
                         @*@Html.TextBoxFor(modal => errorInformation.Customer.CustomerInformation, new { @class = "form-control" })*@
                         @Html.DropDownListFor(modal => errorInformation.CustomerId, (IEnumerable<SelectListItem>)ViewBag.degerler, "Müşteri bilgisi seçiniz...",
-                         new { @class = "js-select2", @style = "width: 440px;"})
+                         new { @class = "js-select2", @style = "width: 440px;",@required = "required" })
                         <button type="button" class="modal-open" data-toggle="modal" data-target="#Modal2">
                             Müşteri Ekle
                         </button>
                         <br />
                         <label>Adres</label>
                         @*<input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />*@
-                        @Html.TextBoxFor(modal => errorInformation.City.CityName, new { @class = "form-control" })
+                        @Html.TextBoxFor(modal => errorInformation.City.CityName, new { @class = "form-control", @required = "required" })
 
 
                         <label>Hata Tipi</label>
-                        @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" })
+                        @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" , @required = "required" })
 
                         <label>Hata Özeti</label>
                         @*<input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />*@
-                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control" })
+                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control" , @required = "required" })
 
                         <label>Görüntü</label>
                         @*@Html.TextBoxFor(model => errorInformation.Image, new { type = "file", name = "File" })*@

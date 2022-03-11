@@ -7,11 +7,11 @@
 <form class="form-group" method="post">
     <div>
         <label>Hata Kodu</label>
-        @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control" })     
+        @Html.TextBoxFor(x => x.ErrorTypeName, new { @class = "form-control", @required = "required" })     
     </div>
     <div>
         <label>Hata Açıklaması</label>
-        @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control" })      
+        @Html.TextBoxFor(x => x.ErrorTypeExplanation, new { @class = "form-control",@required = "required" })      
     </div>
     <div style="margin-top:15px">
         <button class="btn btn-info">Hata Tipi Ekle</button>
