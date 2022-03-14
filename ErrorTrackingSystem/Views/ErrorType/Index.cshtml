@@ -3,19 +3,15 @@
 @{ ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml"; }
 
-
-
-
-
 <a href="/ErrorType/Create/" class="btn btn-primary">Yeni Hata Tipi Ekle</a>
 <br />
 <br />
+
 <table id="tbltype" class="table table-bordered">
     <thead class="btn-primary">
         <tr>
             <th>Hata Tipi</th>
-            <th>Hata Açıklaması</th>
-          
+            <th>Hata Açıklaması</th>         
             <th>Hata Tipi Sil</th>
             <th>Güncelle</th>
         </tr>
@@ -24,13 +20,12 @@
         @foreach (var item in Model)
         {
         <tr>
-
             <td>@item.ErrorTypeName</td>
             <td>@item.ErrorTypeExplanation</td>
-            @*<td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorTypeId)">SİL</a></td>*@
-            <td>@Html.ActionLink("SİL", "Delete", new { id = item.ErrorTypeId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>
+            <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorTypeId)">SİL</a></td>
             <td><a href="/ErrorType/Update/@item.ErrorTypeId" class="btn btn-success">GÜNCELLE</a></td>
-        </tr>}
+        </tr>
+        }
     </tbody>
 </table>
 
@@ -40,18 +35,18 @@
     $('#tbltype').DataTable();
 </script>
 
-@*<div class="modal fade"  id="myModal">
+<div class="modal fade"  id="myModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
-                <h3 class="modal-title">Hata Sil</h3>
+                <h3 class="modal-title">Hata Tipi Sil</h3>
             </div>
             <div class="modal-body">
                 <h4>Silmek istediğine emin misin? </h4>
             </div>
             <div class="modal-footer">
-                <a href="/ErrorType/Index" class="btn btn-success" onclick="DeleteErrorType()">Onayla</a>
+                <a href="/ErrorType/Index" class="btn btn-success" onclick="Delete()">Onayla</a>
                 <a href="/ErrorType/Index" class="btn btn-default" data-dismiss="modal">İptal</a>
             </div>
         </div>
@@ -71,7 +66,7 @@
             $.ajax({
 
                 type: "Post",
-                url: "/Home/Delete",
+                url: "/ErrorType/Delete",
                 data: { id: errId },
                 success: function (result) {
                     $("#loaderDiv").hide();
@@ -80,9 +75,4 @@
                 }
             })
         }
-
-
-
-
-
-    </script>*@
+ </script>

@@ -17,13 +17,21 @@ namespace ErrorTrackingSystem.Controllers
         public ActionResult Index()
         {
             var errorInformation = db.ErrorInformation.ToList();
-            IEnumerable<SelectListItem> deger = (from i in db.Customer
+            IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
+                                                 select new SelectListItem
+                                                 {
+                                                     Text = i.Company,
+                                                     Value = i.CustomerId.ToString()
+                                                 }).ToList();
+            ViewBag.com = company;
+
+            IEnumerable<SelectListItem> value = (from i in db.Customer.ToList()
                                                  select new SelectListItem
                                                  {
                                                      Text = i.CustomerName,
                                                      Value = i.CustomerId.ToString()
                                                  }).ToList();
-            ViewBag.degerler = deger;
+            ViewBag.val = value;
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes
                                                select new SelectListItem
                                                {
@@ -33,13 +41,28 @@ namespace ErrorTrackingSystem.Controllers
             ViewBag.info=inf;
             return View(errorInformation);
         }
-     
+        //public JsonResult GetSearchValue(string search)
+        //{
+        //    List<Customer> allsearch = db.Customer.Where(x => x.CustomerName.Contains(search)).Select(x => new Customer
+        //    {
+        //        CustomerId = x.CustomerId,
+        //        CustomerName = x.CustomerName
+        //    }).ToList();
+        //    return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        //}
         [HttpGet]
         public ActionResult CreateError()
         {
             //ViewBag.info = db.ErrorTypes.Select(x => new SelectListItem { Text = x.ErrorTypeName, Value = x.ErrorTypeId.ToString() }).ToList();
             //var errortypelist = db.ErrorTypes.ToList();
             //ViewBag.info = new SelectList(errortypelist, "ErrorTypeId", "ErrorTypeName");
+            IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = i.Company,
+                                                       Value = i.CustomerId.ToString()
+                                                   }).ToList();
+            ViewBag.com = company;
             IEnumerable<SelectListItem> deger = (from i in db.Customer.ToList()
                                                  select new SelectListItem
                                                  {
@@ -86,10 +109,16 @@ namespace ErrorTrackingSystem.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public ActionResult CreateCustomer(Customer customer)
+        {
+            db.Customer.Add(customer);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         public ActionResult UpdateError(int id)
 
         {
-         
             var item = db.ErrorInformation.Find(id);
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
@@ -98,8 +127,6 @@ namespace ErrorTrackingSystem.Controllers
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
             ViewBag.info = inf;
-
-
             return View("UpdateError",item);
         }
         [HttpPost]
@@ -108,7 +135,6 @@ namespace ErrorTrackingSystem.Controllers
             var item = db.ErrorInformation.Where(x => x.ErrorId == errorInformation.ErrorId).FirstOrDefault();
             if (File != null)
             {
-
                 string image = Path.GetFileName(File.FileName);
                 var path = Path.Combine(Server.MapPath("~/Image"), image);
                 File.SaveAs(path);
@@ -116,7 +142,6 @@ namespace ErrorTrackingSystem.Controllers
                 //File.SaveAs(Server.MapPath(path)); 
                 errorInformation.Image = File.FileName.ToString();
             }
-
             item.ErrorId = errorInformation.ErrorId;
             item.Customer.Company = errorInformation.Customer.Company;
             item.Customer.CustomerName = errorInformation.Customer.CustomerName;

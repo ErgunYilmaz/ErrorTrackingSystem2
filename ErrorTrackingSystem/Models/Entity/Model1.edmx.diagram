@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3c36e3bb5c34453e8dc7498f9aac68da" Name="Diagram1">
+      <Diagram DiagramId="3c36e3bb5c34453e8dc7498f9aac68da" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.City" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.Customer" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />

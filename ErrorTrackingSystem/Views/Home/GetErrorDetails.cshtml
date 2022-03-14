@@ -16,16 +16,8 @@
         <tr>
             <td>@Model.ErrorDetails</td>
             <td>@Model.ErrorSolution</td>
-            <td><a href="/Image/@Model.Image" rel="lightbox" title="my caption"><image src="~/Image/@Model.Image" widht="80" height="80"></a></td>
-            <!--<-->@*td><img src="/Image/@Model.Image " width="80" height="80"
-             onclick="this.src='/Image/@Model.Image';this.height=50;this.width=50"
-             ondblclick="this.src='/Image/@Model.Image ';this.width=50; this.height=50;" />
-        </td>*@
-        @*<td>
-            <a href="/Image/@Model.Image" onclick="menubar=0,resizable=1,scroll bars=1,status=0,titlebar=0,toolbar=0"); return false;">
-                <img border="0" src="/Image/@Model.Image" width="80" height="80">
-            </a>
-        </td>*@
+            <td><a href="/Image/@Model.Image" rel="lightbox"><image src="~/Image/@Model.Image" widht="80" height="80"></a></td>                                
         </tr>
     </tbody>
 </table>
+

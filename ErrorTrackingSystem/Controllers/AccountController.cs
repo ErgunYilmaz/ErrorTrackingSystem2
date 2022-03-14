@@ -23,7 +23,7 @@ namespace ErrorTrackingSystem.Controllers
         [HttpPost]
         public ActionResult Login(User user) 
         {
-            var information = db.User.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            var information = db.User.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
             if (information!=null)
             {
                 FormsAuthentication.SetAuthCookie(information.Email, false);
@@ -36,8 +36,8 @@ namespace ErrorTrackingSystem.Controllers
             else
             {
                 ViewBag.error = "Kullanıcı adı veya şifre hatalı";
-            }
-            return RedirectToAction("Index","Home");
+            }            
+             return View();
         }
         public ActionResult Register()
         {
@@ -65,5 +65,6 @@ namespace ErrorTrackingSystem.Controllers
             return View();
 
         }
+
     }
 }

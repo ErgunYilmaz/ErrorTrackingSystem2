@@ -7,33 +7,26 @@
 
 }
 
-
-
 <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-
+<link href="path/to/select2.min.css" rel="stylesheet" />
+<script src="path/to/select2.min.js"></script>
+@*<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>*@
+@*<link href="~/Content/css/select2.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
+   
+    <script src="~/Scripts/select2.min.js"></script>
 <script>
-        var modalBtns = document.querySelectorAll('.modal-open');
-        modalBtns.forEach(function (btn) {
-            btn.onclick=function () {
-                var model = btn.getAttribute('data-target');
-                document.getElementById(modal).style.display = 'block';
-
-            };
-        });
-        var closeBtns = document.querySelectorAll('.modal-close');
-        closeBtns.forEach(function (btn) {
-            btn.onclick() = function () {
-                var modal = btn.closest('.modal').style.display = 'none';
-            }
-        });
-    </script>
+    
+</script>
 <script>
-    $(function () {
-        $(".js-select2").select2();
+    $(document).ready(function () {
+        $(".js-select2").select2(         
+        );
     });
 </script>
-<button type="button" class="modal-open" data-toggle="modal" data-target="#Modal1">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal1">
     Yeni Hata Ekle
 </button>
 <br />
@@ -42,13 +35,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="modal-title">Müşteri Bilgisi Ekle</h2>
-                <form method="post" action="/Home/CreateError">
+                <form method="post" action="/Home/CreateCustomer">
                     <div class="modal-body">
                         <label>Müşteri Ad/Soyad</label>
                         <br />
-                        @Html.TextBoxFor(modal => errorInformation.Customer.CustomerName, new { @class = "form-control" })
+                        @Html.TextBoxFor(modal => customer.CustomerName, new { @class = "form-control" })
                         <br />
-                        <button class="btn btn-info" id="btn_Save">Verileri Kaydet</button>
+                        <label>Şirket</label>
+                        <br />
+                        @Html.TextBoxFor(modal => customer.Company, new { @class = "form-control" })
+                        <br />
+                                            
+                        <button class="btn btn-info" id="btn_Save" data-target="#Modal1">KAYDET</button>
+                        <button class="btn btn-danger" data-dismiss="modal">İPTAL</button>
                     </div>
                 </form>
             </div>
@@ -63,43 +62,36 @@
                 <h2 class="modal-title">Hata Ekleme Ekranı</h2>
                 <form method="post" action="/Home/CreateError" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <label>Firma Adı</label>
-                        @*<input type="text" class="form-control" name="Company" required="" maxlength="50" />*@
-                        @Html.TextBoxFor(modal => errorInformation.Customer.Company, new { @class = "form-control", @required = "required" })
-                       
                         <label>Müşteri Ad/Soyad</label>
-                        <br />
-                        @*@Html.TextBoxFor(modal => errorInformation.Customer.CustomerInformation, new { @class = "form-control" })*@
-                        @Html.DropDownListFor(modal => errorInformation.CustomerId, (IEnumerable<SelectListItem>)ViewBag.degerler, "Müşteri bilgisi seçiniz...",
-                         new { @class = "js-select2", @style = "width: 440px;",@required = "required" })
-                        <button type="button" class="modal-open" data-toggle="modal" data-target="#Modal2">
+                        @* @Html.TextBoxFor(modal => errorInformation.Customer.CustomerId, new { @class = "form-control" })*@
+                        @Html.DropDownListFor(modal => errorInformation.CustomerId, (IEnumerable<SelectListItem>)ViewBag.val, "Müşteri bilgisi seçiniz...",
+                         new { @class = "js-select2", @style = "width: 420px;", @required = "required" })
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2" data-dismiss="modal">
                             Müşteri Ekle
                         </button>
-                        <br />
+                        <label>Firma Adı</label>
+                        @*<input type="text" class="form-control" name="Company" required="" maxlength="50" />*@
+                        @*@Html.TextBoxFor(modal => errorInformation.Customer.Company, new { @class = "form-control", @required = "required" })*@
+                        @Html.DropDownListFor(modal => errorInformation.CustomerId, (IEnumerable<SelectListItem>)ViewBag.com, new { @class = "form-control", @required = "required" })
                         <label>Adres</label>
                         @*<input type="text" class="form-control" name="CustomerSurname" required="" maxlength="30" />*@
                         @Html.TextBoxFor(modal => errorInformation.City.CityName, new { @class = "form-control", @required = "required" })
-
-
                         <label>Hata Tipi</label>
-                        @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control" , @required = "required" })
-
+                        @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control", @required = "required" })
                         <label>Hata Özeti</label>
                         @*<input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />*@
-                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control" , @required = "required" })
-
+                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control", @required = "required" })
                         <label>Görüntü</label>
                         @*@Html.TextBoxFor(model => errorInformation.Image, new { type = "file", name = "File" })*@
                         <input type="file" name="File" class="form-control">
-
                         <label>Hata Detayı</label>
                         @*<input type="text" class="form-control" name="ErrorDetails" maxlength="200" />*@
                         @Html.TextBoxFor(modal => errorInformation.ErrorDetails, new { @class = "form-control" })
-
                         <label>Hata Çözümü</label>
                         @Html.TextBoxFor(modal => errorInformation.ErrorSolution, new { @class = "form-control" })
                         <br />
                         <button class="btn btn-info" id="btn_Save">Verileri Kaydet</button>
+                        <button class="btn btn-danger" data-dismiss="modal">İPTAL ET</button>
                     </div>
                 </form>
             </div>
@@ -123,16 +115,16 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.Customer.Company</td>
-                <td>@item.Customer.CustomerName</td>
-                <td>@item.ErrorTypes.ErrorTypeName</td>
-                <td>@item.City.CityName</td>
-                <td>@item.ErrorSummary</td>
-                <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorId)">SİL</a></td>
-                <td><a href="/Home/UpdateError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
-                <td><a href="/Home/GetErrorDetails/@item.ErrorId" class="btn btn-warning">HATA DETAYI </a></td>
-            </tr>
+        <tr>
+            <td>@item.Customer.Company</td>
+            <td>@item.Customer.CustomerName</td>
+            <td>@item.City.CityName</td>
+            <td>@item.ErrorTypes.ErrorTypeName</td>
+            <td>@item.ErrorSummary</td>
+            <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorId)">SİL</a></td>
+            <td><a href="/Home/UpdateError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>
+            <td><a href="/Home/GetErrorDetails/@item.ErrorId" class="btn btn-warning">HATA DETAYI </a></td>
+        </tr>
         }
     </tbody>
 </table>
@@ -181,15 +173,30 @@
         })
     }
 </script>
+@*<script>
+    $("#searchInput").autocomplete({
+        source: function (request, response) {
+            $ajax({
+                url: '@Url.Action("GetSearchValue","Home")',
+                dataType: "json",
+                data: { search: $("searchInput").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return {label:item.CustomerName,value:item.CustomerName}
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    })
+</script>*@
 
 
 
 
 
-@*<td>@Html.ActionLink("SİL", "DeleteError", new { id = item.ErrorId }, new { @class = "btn btn-danger", onclick = "return confirm('Silmek istiyor musunuz?')" })</td>*@
-@*<td><a class="btn btn-danger " id="btnDeleteError" href="#"> SİL </a></td>*@
-@*@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))*@
-@*<a href="/Home/CreateError/" class="btn btn-primary">Yeni Hata Ekle</a>*@
 
 
 
