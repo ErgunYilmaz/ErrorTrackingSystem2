@@ -37,15 +37,13 @@
                 <h2 class="modal-title">Müşteri Bilgisi Ekle</h2>
                 <form method="post" action="/Home/CreateCustomer">
                     <div class="modal-body">
-                        <label>Müşteri Ad/Soyad</label>
-                        <br />
+                        <label>Müşteri Ad/Soyad</label><br />
                         @Html.TextBoxFor(modal => customer.CustomerName, new { @class = "form-control" })
                         <br />
                         <label>Şirket</label>
                         <br />
                         @Html.TextBoxFor(modal => customer.Company, new { @class = "form-control" })
-                        <br />
-                                            
+                        <br />                                            
                         <button class="btn btn-info" id="btn_Save" data-target="#Modal1">KAYDET</button>
                         <button class="btn btn-danger" data-dismiss="modal">İPTAL</button>
                     </div>
@@ -119,7 +117,7 @@
             <td>@item.Customer.Company</td>
             <td>@item.Customer.CustomerName</td>
             <td>@item.City.CityName</td>
-            <td>@item.ErrorTypes.ErrorTypeName</td>
+            <td>@item.ErrorTypes.ErrorTypeExplanation</td>
             <td>@item.ErrorSummary</td>
             <td><a class="btn btn-danger" onclick="ConfirmDelete(@item.ErrorId)">SİL</a></td>
             <td><a href="/Home/UpdateError/@item.ErrorId" class="btn btn-success"> GÜNCELLE </a></td>

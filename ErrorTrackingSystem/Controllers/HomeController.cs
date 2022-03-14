@@ -35,7 +35,7 @@ namespace ErrorTrackingSystem.Controllers
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes
                                                select new SelectListItem
                                                {
-                                                   Text = i.ErrorTypeName,
+                                                   Text = i.ErrorTypeExplanation,
                                                    Value = i.ErrorTypeId.ToString()
                                                }).ToList();
             ViewBag.info=inf;
@@ -73,7 +73,7 @@ namespace ErrorTrackingSystem.Controllers
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
                                         {
-                                            Text = i.ErrorTypeName,
+                                            Text = i.ErrorTypeExplanation,
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
             ViewBag.info= inf;

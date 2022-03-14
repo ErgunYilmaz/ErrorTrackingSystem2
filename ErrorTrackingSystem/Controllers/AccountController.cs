@@ -52,12 +52,12 @@ namespace ErrorTrackingSystem.Controllers
                 db.SaveChanges();
                 ModelState.Clear();
                 ViewBag.Message = user.Name + "  " + user.Surname + " " + "başarılı şekilde kayıt oldunuz.";
-                //return RedirectToAction("Login","Account");
+                return RedirectToAction("Login","Account");
             }
             else
             {
                
-                ViewBag.Message = "Girmiş olduğunuz şifreler birbirleriyle eşleşmemektedir..";
+                ViewBag.Message = "Girmiş olduğunuz şifreler birbirleriyle eşleşmemektedir.Eşleşen şifre girerek tekrardan kayıt olunuz.";
               
             }
            
