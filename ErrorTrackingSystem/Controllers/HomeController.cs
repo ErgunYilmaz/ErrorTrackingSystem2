@@ -17,13 +17,13 @@ namespace ErrorTrackingSystem.Controllers
         public ActionResult Index()
         {
             var errorInformation = db.ErrorInformation.ToList();
-            IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
-                                                 select new SelectListItem
-                                                 {
-                                                     Text = i.Company,
-                                                     Value = i.CustomerId.ToString()
-                                                 }).ToList();
-            ViewBag.com = company;
+            //IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
+            //                                     select new SelectListItem
+            //                                     {
+            //                                         Text = i.Company,
+            //                                         Value = i.CustomerId.ToString()
+            //                                     }).ToList();
+            //ViewBag.com = company;
 
             IEnumerable<SelectListItem> value = (from i in db.Customer.ToList()
                                                  select new SelectListItem
@@ -56,13 +56,13 @@ namespace ErrorTrackingSystem.Controllers
             //ViewBag.info = db.ErrorTypes.Select(x => new SelectListItem { Text = x.ErrorTypeName, Value = x.ErrorTypeId.ToString() }).ToList();
             //var errortypelist = db.ErrorTypes.ToList();
             //ViewBag.info = new SelectList(errortypelist, "ErrorTypeId", "ErrorTypeName");
-            IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
-                                                   select new SelectListItem
-                                                   {
-                                                       Text = i.Company,
-                                                       Value = i.CustomerId.ToString()
-                                                   }).ToList();
-            ViewBag.com = company;
+            //IEnumerable<SelectListItem> company = (from i in db.Customer.ToList()
+            //                                       select new SelectListItem
+            //                                       {
+            //                                           Text = i.Company,
+            //                                           Value = i.CustomerId.ToString()
+            //                                       }).ToList();
+            //ViewBag.com = company;
             IEnumerable<SelectListItem> deger = (from i in db.Customer.ToList()
                                                  select new SelectListItem
                                                  {
@@ -123,7 +123,7 @@ namespace ErrorTrackingSystem.Controllers
             IEnumerable<SelectListItem> inf = (from i in db.ErrorTypes.ToList()
                                         select new SelectListItem
                                         {
-                                            Text = i.ErrorTypeName,
+                                            Text = i.ErrorTypeExplanation,
                                             Value = i.ErrorTypeId.ToString()
                                         }).ToList();
             ViewBag.info = inf;
@@ -143,7 +143,7 @@ namespace ErrorTrackingSystem.Controllers
                 errorInformation.Image = File.FileName.ToString();
             }
             item.ErrorId = errorInformation.ErrorId;
-            item.Customer.Company = errorInformation.Customer.Company;
+            item.Company = errorInformation.Company;
             item.Customer.CustomerName = errorInformation.Customer.CustomerName;
             item.City.CityName = errorInformation.City.CityName;
             item.ErrorSummary = errorInformation.ErrorSummary;

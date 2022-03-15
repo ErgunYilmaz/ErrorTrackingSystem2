@@ -12,6 +12,11 @@
         text-align: center;
         
     }
+    .modal-dialog {
+        width: 70%;
+        height: 70%;
+        /*color: white;*/
+    }
 </style>
 <table class="table table-bordered ">
     <tr>
@@ -32,20 +37,23 @@
                      widht="80" height="50" />
 
                 <div class="modal fade"
+                     align="center"
                      id="exampleModal"
                      tabindex="-1"
                      role="dialog"
                      aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
-                    <div class="modal-dialog"
-                         role="document">
-                        <div class="modal-content">
+                    <div class="modal-dialog"  
+                         role="document"
+                         
+                        >
+                        <div class="modal-content" >
                             <div class="modal-header">
                                  @*w-100 class so that header
                                 div covers 100% width of parent div*@ 
-                                <h5 class="modal-title w-auto"
+                                @*<h5 class="modal-title w."
                                     id="exampleModalLabel">
-                                </h5>
+                                </h5>*@
                                 <button type="button"
                                         class="close"
                                         data-dismiss="modal"
@@ -56,16 +64,17 @@
                                 </button>
                             </div>
 
-                            <!--Modal body with image-->
-                            <div class="modal-body">
-                                <img src="/Image/@Model.Image" widht="325" height="325" />
+                            @*Modal body with image*@
+                        
+                            <div>
+                                <img src="/Image/@Model.Image" widht="600" height="600" />
                             </div>
-
+                      
                             @*<div class="modal-footer">
                                 <button type="button"
                                         class="btn btn-danger"
                                         data-dismiss="modal">
-                                    
+                                        Kapat
                                 </button>
                             </div>*@
                         </div>

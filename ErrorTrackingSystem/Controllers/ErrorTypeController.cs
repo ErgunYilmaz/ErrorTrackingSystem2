@@ -29,8 +29,7 @@ namespace ErrorTrackingSystem.Controllers
         }
         public ActionResult Create()
         {
-
-           return View();
+          return View();
         }
         [HttpPost]
         public ActionResult Create(ErrorTypes errorTypes)

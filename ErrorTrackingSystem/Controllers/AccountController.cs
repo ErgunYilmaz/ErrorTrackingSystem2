@@ -36,8 +36,8 @@ namespace ErrorTrackingSystem.Controllers
             else
             {
                 ViewBag.error = "Kullanıcı adı veya şifre hatalı";
-            }            
-             return View();
+            }
+            return View();
         }
         public ActionResult Register()
         {

@@ -32,7 +32,40 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <link href="~/Content/DataTables/css/dataTables.bootstrap4.css" rel="stylesheet" />
 <script>
-    $('#tbltype').DataTable();
+    $('#tbltype').dataTable({
+        "responsive": true,
+        "dom": '<"html5buttons"B>lTfgitp',
+        "language": {
+            "emptyTable": "Gösterilecek ver yok.",
+            "processing": "Veriler yükleniyor",
+            "sDecimal": ".",
+            "sInfo": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor",
+            "sInfoFiltered": "(_MAX_ kayıt içerisinden bulunan)",
+            "sInfoPostFix": "",
+            "sInfoThousands": ".",
+            "sLengthMenu": "Sayfada _MENU_ kayıt göster",
+            "sLoadingRecords": "Yükleniyor...",
+            "sSearch": "Ara:",
+            "sZeroRecords": "Eşleşen kayıt bulunamadı",
+            "oPaginate": {
+                "sFirst": "İlk",
+                "sLast": "Son",
+                "sNext": "Sonraki",
+                "sPrevious": "Önceki"
+            },
+            "oAria": {
+                "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+            },
+            "select": {
+                "rows": {
+                    "_": "%d kayıt seçildi",
+                    "0": "",
+                    "1": "1 kayıt seçildi"
+                }
+            }
+        }
+    });
 </script>
 
 <div class="modal fade"  id="myModal">

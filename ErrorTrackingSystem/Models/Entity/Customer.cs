@@ -18,16 +18,12 @@ namespace ErrorTrackingSystem.Models.Entity
         public Customer()
         {
             this.ErrorInformation = new HashSet<ErrorInformation>();
-            this.City = new HashSet<City>();
         }
     
         public int CustomerId { get; set; }
         public string CustomerName { get; set; }
-        public string Company { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ErrorInformation> ErrorInformation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<City> City { get; set; }
     }
 }
