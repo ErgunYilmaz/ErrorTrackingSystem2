@@ -11,12 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <link href="path/to/select2.min.css" rel="stylesheet" />
 <script src="path/to/select2.min.js"></script>
-@*<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>*@
-@*<link href="~/Content/css/select2.min.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-3.6.0.min.js"></script>*@
-   
-    <script src="~/Scripts/select2.min.js"></script>
+
+<script src="~/Scripts/select2.min.js"></script>
 <script>
     
 </script>
@@ -34,14 +30,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Müşteri Bilgisi Ekle</h2>
+                <h2 class="modal-title" style="text-align:center">Müşteri Bilgisi Ekle</h2>
                 <form method="post" action="/Home/CreateCustomer">
                     <div class="modal-body">
                         <label>Müşteri Ad/Soyad</label><br />
                         @Html.TextBoxFor(modal => customer.CustomerName, new { @class = "form-control" })
-                        <br />
-                                                        
-                        <button class="btn btn-info" id="btn_Save" data-target="#Modal1">KAYDET</button>
+                        <br />                                                       
+                        <button class="btn btn-info" id="btn_Save" data-toggle="modal" data-target="#Modal1">KAYDET</button>
                         <button class="btn btn-danger" data-dismiss="modal">İPTAL</button>
                     </div>
                 </form>
@@ -54,15 +49,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Hata Ekleme Ekranı</h2>
+                <h2 class="modal-title" style="text-align:center">Hata Ekleme Ekranı</h2>
                 <form method="post" action="/Home/CreateError" enctype="multipart/form-data">
                     <div class="modal-body">
                         <label>Müşteri Ad/Soyad</label>
                         @* @Html.TextBoxFor(modal => errorInformation.Customer.CustomerId, new { @class = "form-control" })*@
                         @Html.DropDownListFor(modal => errorInformation.CustomerId, (IEnumerable<SelectListItem>)ViewBag.val, "Müşteri bilgisi seçiniz...",
-                         new { @class = "js-select2", @style = "width: 420px;", @required = "required" })
+                         new { @class = "js-select2", @style = "width: 480px;", @required = "required" })
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2" data-dismiss="modal">
-                            Müşteri Ekle
+                         ➕
                         </button>
                         <label>Firma Adı</label>
                         @*<input type="text" class="form-control" name="Company" required="" maxlength="50" />*@
@@ -75,7 +70,7 @@
                         @Html.DropDownListFor(modal => errorInformation.ErrorTId, (IEnumerable<SelectListItem>)ViewBag.info, new { @class = "form-control", @required = "required" })
                         <label>Hata Özeti</label>
                         @*<input type="text" class="form-control" name="ErrorSummary" required="" maxlength="80" />*@
-                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control", @required = "required" })
+                        @Html.TextBoxFor(modal => errorInformation.ErrorSummary, new { @class = "form-control"})
                         <label>Görüntü</label>
                         @*@Html.TextBoxFor(model => errorInformation.Image, new { type = "file", name = "File" })*@
                         <input type="file" name="File" class="form-control">
@@ -144,8 +139,8 @@
             "oPaginate": {
                 "sFirst": "İlk",
                 "sLast": "Son",
-                "sNext": "Sonraki",
-                "sPrevious": "Önceki"
+                "sNext": ">",
+                "sPrevious": "<"
             },
             "oAria": {
                 "sSortAscending": ": artan sütun sıralamasını aktifleştir",
@@ -201,25 +196,7 @@
         })
     }
 </script>
-@*<script>
-    $("#searchInput").autocomplete({
-        source: function (request, response) {
-            $ajax({
-                url: '@Url.Action("GetSearchValue","Home")',
-                dataType: "json",
-                data: { search: $("searchInput").val() },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return {label:item.CustomerName,value:item.CustomerName}
-                    }));
-                },
-                error: function (xhr, status, error) {
-                    alert("Error");
-                }
-            });
-        }
-    })
-</script>*@
+
 
 
 

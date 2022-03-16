@@ -86,7 +86,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ErrorInformation_ErrorTypes">
+        <Association Name="FK_ErrorInformation_ErrorTypes1">
           <End Role="ErrorTypes" Type="Self.ErrorTypes" Multiplicity="0..1" />
           <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
           <ReferentialConstraint>
@@ -113,7 +113,7 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
-          <AssociationSet Name="FK_ErrorInformation_ErrorTypes" Association="Self.FK_ErrorInformation_ErrorTypes">
+          <AssociationSet Name="FK_ErrorInformation_ErrorTypes1" Association="Self.FK_ErrorInformation_ErrorTypes1">
             <End Role="ErrorTypes" EntitySet="ErrorTypes" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
@@ -144,17 +144,8 @@
           <Property Name="CustomerId" Type="Int32" />
           <Property Name="Company" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_ErrorInformation_Customer" FromRole="ErrorInformation" ToRole="Customer" />
-          <NavigationProperty Name="ErrorTypes" Relationship="Self.FK_ErrorInformation_ErrorTypes" FromRole="ErrorInformation" ToRole="ErrorTypes" />
           <NavigationProperty Name="City" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_City" FromRole="ErrorInformation" ToRole="City" />
-        </EntityType>
-        <EntityType Name="ErrorTypes">
-          <Key>
-            <PropertyRef Name="ErrorTypeId" />
-          </Key>
-          <Property Name="ErrorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ErrorTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorTypeExplanation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ErrorInformation" Relationship="Self.FK_ErrorInformation_ErrorTypes" FromRole="ErrorTypes" ToRole="ErrorInformation" />
+          <NavigationProperty Name="ErrorTypes" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" FromRole="ErrorInformation" ToRole="ErrorTypes" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -189,35 +180,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ErrorInformation_ErrorTypes">
-          <End Role="ErrorTypes" Type="Self.ErrorTypes" Multiplicity="0..1" />
-          <End Role="ErrorInformation" Type="Self.ErrorInformation" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ErrorTypes">
-              <PropertyRef Name="ErrorTypeId" />
-            </Principal>
-            <Dependent Role="ErrorInformation">
-              <PropertyRef Name="ErrorTId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MistakeTrackingSystemEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customer" EntityType="Self.Customer" />
           <EntitySet Name="ErrorInformation" EntityType="Self.ErrorInformation" />
-          <EntitySet Name="ErrorTypes" EntityType="Self.ErrorTypes" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="User" EntityType="Self.User" />
           <AssociationSet Name="FK_ErrorInformation_Customer" Association="Self.FK_ErrorInformation_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
-          <AssociationSet Name="FK_ErrorInformation_ErrorTypes" Association="Self.FK_ErrorInformation_ErrorTypes">
-            <End Role="ErrorTypes" EntitySet="ErrorTypes" />
-            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
-          </AssociationSet>
           <EntitySet Name="City" EntityType="MistakeTrackingSystemModel.City" />
           <AssociationSet Name="FK_ErrorInformation_City" Association="MistakeTrackingSystemModel.FK_ErrorInformation_City">
             <End Role="City" EntitySet="City" />
+            <End Role="ErrorInformation" EntitySet="ErrorInformation" />
+          </AssociationSet>
+          <EntitySet Name="ErrorTypes" EntityType="MistakeTrackingSystemModel.ErrorTypes" />
+          <AssociationSet Name="FK_ErrorInformation_ErrorTypes1" Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1">
+            <End Role="ErrorTypes" EntitySet="ErrorTypes" />
             <End Role="ErrorInformation" EntitySet="ErrorInformation" />
           </AssociationSet>
         </EntityContainer>
@@ -238,6 +217,27 @@
             </Principal>
             <Dependent Role="ErrorInformation">
               <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ErrorTypes">
+          <Key>
+            <PropertyRef Name="ErrorTypeId" />
+          </Key>
+          <Property Name="ErrorTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ErrorTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorTypeExplanation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ErrorInformation" Relationship="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" FromRole="ErrorTypes" ToRole="ErrorInformation" />
+        </EntityType>
+        <Association Name="FK_ErrorInformation_ErrorTypes1">
+          <End Type="MistakeTrackingSystemModel.ErrorTypes" Role="ErrorTypes" Multiplicity="0..1" />
+          <End Type="MistakeTrackingSystemModel.ErrorInformation" Role="ErrorInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ErrorTypes">
+              <PropertyRef Name="ErrorTypeId" />
+            </Principal>
+            <Dependent Role="ErrorInformation">
+              <PropertyRef Name="ErrorTId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -270,15 +270,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ErrorTypes">
-            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.ErrorTypes">
-              <MappingFragment StoreEntitySet="ErrorTypes">
-                <ScalarProperty Name="ErrorTypeId" ColumnName="ErrorTypeId" />
-                <ScalarProperty Name="ErrorTypeName" ColumnName="ErrorTypeName" />
-                <ScalarProperty Name="ErrorTypeExplanation" ColumnName="ErrorTypeExplanation" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="MistakeTrackingSystemModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -307,6 +298,15 @@
               <MappingFragment StoreEntitySet="City">
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="CityId" ColumnName="CityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorTypes">
+            <EntityTypeMapping TypeName="MistakeTrackingSystemModel.ErrorTypes">
+              <MappingFragment StoreEntitySet="ErrorTypes">
+                <ScalarProperty Name="ErrorTypeExplanation" ColumnName="ErrorTypeExplanation" />
+                <ScalarProperty Name="ErrorTypeName" ColumnName="ErrorTypeName" />
+                <ScalarProperty Name="ErrorTypeId" ColumnName="ErrorTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

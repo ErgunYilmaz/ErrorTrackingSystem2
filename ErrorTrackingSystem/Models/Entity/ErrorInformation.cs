@@ -25,7 +25,7 @@ namespace ErrorTrackingSystem.Models.Entity
         public string Company { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual ErrorTypes ErrorTypes { get; set; }
         public virtual City City { get; set; }
+        public virtual ErrorTypes ErrorTypes { get; set; }
     }
 }

@@ -27,9 +27,9 @@ namespace ErrorTrackingSystem.Models.Entity
     
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<ErrorInformation> ErrorInformation { get; set; }
-        public virtual DbSet<ErrorTypes> ErrorTypes { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<City> City { get; set; }
+        public virtual DbSet<ErrorTypes> ErrorTypes { get; set; }
     }
 }

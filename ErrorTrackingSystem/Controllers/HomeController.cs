@@ -107,7 +107,7 @@ namespace ErrorTrackingSystem.Controllers
             var Information = db.ErrorInformation.Find(id);
             db.ErrorInformation.Remove(Information);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView() ;
         }
         [HttpPost]
         public ActionResult CreateCustomer(Customer customer)
@@ -137,9 +137,7 @@ namespace ErrorTrackingSystem.Controllers
             {
                 string image = Path.GetFileName(File.FileName);
                 var path = Path.Combine(Server.MapPath("~/Image"), image);
-                File.SaveAs(path);
-                //string path = Path.Combine("~/Image" + File.FileName);
-                //File.SaveAs(Server.MapPath(path)); 
+                File.SaveAs(path);            
                 errorInformation.Image = File.FileName.ToString();
             }
             item.ErrorId = errorInformation.ErrorId;

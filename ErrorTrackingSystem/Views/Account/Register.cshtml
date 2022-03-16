@@ -14,41 +14,43 @@
 
 </head>
 <body>
-    <div class="container" >
+    <div class="container">
         <br />
         <h2 class="text-center">KAYIT OL</h2>
-        <div class="tox-form-group col-md-5 container " style="background-color: gainsboro; align-items: center;" >
+        <div class="tox-form-group col-md-5 container " style="background-color: gainsboro; align-items: center;">
             <form method="post">
                 <label>Ad</label>
-                <input type="text" name="Name" class="form-control" required maxlength="30" placeholder="Adınızı giriniz..."/>
-               
+                <input type="text" name="Name" class="form-control" required maxlength="30" placeholder="Adınızı giriniz..." />
+
 
                 <label>Soyad</label>
-                <input type="text" name="Surname" class="form-control" required maxlength="30" placeholder="Soyadınızı girinz..."/>
-               
+                <input type="text" name="Surname" class="form-control" required maxlength="30" placeholder="Soyadınızı girinz..." />
+
 
                 <label>Email</label>
-                <input type="email" name="Email" class="form-control" required maxlength="50" placeholder="Email bilginizi giriniz.."/>
-                
+                <input type="email" name="Email" class="form-control" required maxlength="50" placeholder="Email bilginizi giriniz.." />
+
 
                 <label>Şifre</label>
-                <input type="password" name="Password" class="form-control" required maxlength="16" placeholder="Şifrenizi giriniz.."/>
-            
+                <input type="password" name="Password" class="form-control" required maxlength="16" placeholder="Şifrenizi giriniz.." />
+
 
                 <label>Şifre Tekrarı</label>
-                <input type="password" name="RepeatPassword" class="form-control" required maxlength="16" placeholder="Şifrenizi tekrarlayınız.."/>
+                <input type="password" name="RepeatPassword" class="form-control" required maxlength="16" placeholder="Şifrenizi tekrarlayınız.." />
                 <br />
-                <button class="btn btn-dark w-100" >ONAYLA</button>
-
-
-
+                <button class="btn btn-dark w-100">ONAYLA</button>
             </form>
-             <br />
-             <div class="col-md-offset-2 col-md-auto">
-                 <label>@ViewBag.Message</label>
-             </div>
+            <br />
+            <label style="color:red ; text-align:center" id="div-1">@ViewBag.Message</label>
         </div>
+                  
+        
     </div>
 </body>
 </html>
-
+<script>
+    setTimeout(function () {
+        var deletediv = document.getElementById("div-1");
+        deletediv.parentNode.removeChild(deletediv);
+    }, 3000);
+</script>

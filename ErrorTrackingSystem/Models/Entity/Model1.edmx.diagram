@@ -7,13 +7,13 @@
       <Diagram DiagramId="87b6fc726a19491dace213f0e9f0bcf1" Name="Diagram1">
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.Customer" Width="1.5" PointX="1.875" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorInformation" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="2.5" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.sysdiagrams" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.User" Width="1.5" PointX="7.875" PointY="4.125" IsExpanded="true" />
         <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes" ManuallyRouted="false" />
         <EntityTypeShape EntityType="MistakeTrackingSystemModel.City" Width="1.5" PointX="7.75" PointY="1.75" />
         <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_City" />
+        <EntityTypeShape EntityType="MistakeTrackingSystemModel.ErrorTypes" Width="1.5" PointX="0.75" PointY="4.875" />
+        <AssociationConnector Association="MistakeTrackingSystemModel.FK_ErrorInformation_ErrorTypes1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

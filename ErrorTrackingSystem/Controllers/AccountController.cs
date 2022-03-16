@@ -57,7 +57,7 @@ namespace ErrorTrackingSystem.Controllers
             else
             {
                
-                ViewBag.Message = "Girmiş olduğunuz şifreler birbirleriyle eşleşmemektedir.Eşleşen şifre girerek tekrardan kayıt olunuz.";
+                ViewBag.Message = "Girmiş olduğunuz şifreler birbirleriyle eşleşmemektedir";
               
             }
            
